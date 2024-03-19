@@ -186,6 +186,7 @@ async def insert_fines(fines_list):
         query = f.read()
     fines_list_arr = []
     sts = fines_list['sts']
+    reg = fines_list['regnum']
     for fine in fines_list['data']:
         dt_discount = convert_to_ts(fine.get('DateDiscount', None))
         dt_create = convert_to_ts(fine.get('DateDecis', None))
@@ -211,12 +212,16 @@ async def insert_fines(fines_list):
                 sts
             )
         )
+    upd_query = f"""
+                UPDATE fines_base.sts_regnumbers SET 
+                    updated_at = CURRENT_TIMESTAMP
+                WHERE sts_number = '{sts}' AND reg_number = '{reg}'
+            """
     async with AsyncDatabase(**conf) as db:
         data = await db.executemany(query, fines_list_arr)
     # config.logger.info(data)
-    await update_pair(fines_list['sts'], fines_list['regnum'])
-    if data:
-
+        u_data = await db.fetch(upd_query)
+    if data and u_data:
         return data
     else:
         return []

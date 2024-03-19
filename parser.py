@@ -113,6 +113,7 @@ class Fines:
                     return self.get_fines(regnum, sts)
                 if res.get('status', 200) == 404:
                     try:
+                        config.logger.info(f'Need to set invalid pair [{sts} - {regnum}]')
                         asyncio.run(sql_adapter.set_pair_invalid(sts, regnum))
                     except Exception as e:
                         config.logger.error(e)
