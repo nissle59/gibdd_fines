@@ -100,8 +100,8 @@ class Fines:
                     return self.get_fines(regnum, sts)
             else:
                 r = self.session.post(self.dc_check_url, data=params, verify=False)
-            with open(f'results/{sts}-{regnum}.json', 'w', encoding='utf-8') as f:
-                f.write(r.text)
+            # with open(f'results/{sts}-{regnum}.json', 'w', encoding='utf-8') as f:
+            #     f.write(r.text)
             config.logger.debug(r.status_code)
             config.logger.debug(r.text)
             try:
