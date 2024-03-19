@@ -121,6 +121,7 @@ class Fines:
                 if len(res['data']) == 0:
                     result = []
                     config.logger.info(f'[{self.captcha_iter} - {c_code}] {sts} - NO FINES ({msg})')
+                    asyncio.run(sql_adapter.all_paid(sts))
                     return result
                 result = res
                 result['sts'] = sts

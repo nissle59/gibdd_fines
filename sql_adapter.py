@@ -181,6 +181,16 @@ def get_cars_from_file():
 '''
 
 
+async def all_paid(sts):
+    async with AsyncDatabase(**conf) as db:
+        done_q = f"update fines_base.fines set status = 'done' where sts_number = '{sts}'"
+        data = await db.fetch(done_q)
+        if data:
+            return data
+        else:
+            return []
+
+
 async def insert_fines(fines_list):
     async with AsyncDatabase(**conf) as db:
         with open('sql/insert_fine.sql', 'r', encoding='utf-8') as f:
@@ -266,8 +276,8 @@ async def insert_laws(fines_list):
         query = f.read()
     fines_list_arr = []
     for fine in fines_list['data']:
-        id = fine.get('KoAPcode','0').replace('ч.', '.')
-        number = fine.get('KoAPcode','0').split('ч.')[0]
+        id = fine.get('KoAPcode', '0').replace('ч.', '.')
+        number = fine.get('KoAPcode', '0').split('ч.')[0]
         part = fine.get('KoAPcode', '0').split('ч.')[1]
         fines_list_arr.append(
             (
