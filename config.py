@@ -6,8 +6,8 @@ from itertools import cycle
 # from rq import Queue, Worker
 
 DATABASE = {
-    'host': '10.8.0.5',
-    #'host': 'db.local',
+    # 'host': '10.8.0.5',
+    'host': 'db.local',
     'port': 5432,
     'user': 'postgres',
     'pswd': 'psqlpass',
@@ -26,7 +26,7 @@ touched_at = 7
 # workers = Worker.all(queue=queue)
 
 
-logging.basicConfig(level=logging.DEBUG)
+logging.basicConfig(level=logging.INFO)
 
 handler = logging.FileHandler('app.log')
 formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')

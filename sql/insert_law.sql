@@ -12,9 +12,8 @@ INSERT INTO
 		    $4
 		)
 		on conflict (id)
-		do update set
-		    law_description = $2,
-		    law_part_description = $2
+		do update set law_description      = $4,
+                      law_part_description = $4
 		RETURNING
 			id,
             law_part_description

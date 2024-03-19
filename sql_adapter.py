@@ -279,14 +279,13 @@ async def set_pair_invalid(sts, reg):
 
 
 async def touch_pair(sts, reg):
-    query = """
+    query = f"""
             UPDATE fines_base.sts_regnumbers SET 
                 touched_at = CURRENT_TIMESTAMP
-            WHERE sts_number = $1 AND reg_number = $2
+            WHERE sts_number = '{sts}' AND reg_number = '{reg}'
         """
-    item_tuple = (sts, reg)
     async with AsyncDatabase(**conf) as db:
-        data = await db.execute(query, item_tuple)
+        data = await db.fetch(query)
     if data:
         return True
     else:
@@ -294,14 +293,13 @@ async def touch_pair(sts, reg):
 
 
 async def update_pair(sts, reg):
-    query = """
+    query = f"""
             UPDATE fines_base.sts_regnumbers SET 
                 updated_at = CURRENT_TIMESTAMP
-            WHERE sts_number = $1 AND reg_number = $2
+            WHERE sts_number = '{sts}' AND reg_number = '{reg}'
         """
-    item_tuple = (sts, reg)
     async with AsyncDatabase(**conf) as db:
-        data = await db.execute(query, item_tuple)
+        data = await db.fetch(query)
     if data:
         return True
     else:
