@@ -263,15 +263,14 @@ async def insert_laws(fines_list):
 
 
 async def set_pair_invalid(sts, reg):
-    query = """
+    query = f"""
         UPDATE fines_base.sts_regnumbers SET 
             is_valid = False, 
             invalid_at = CURRENT_TIMESTAMP
-        WHERE sts_number = $1 AND reg_number = $2
+        WHERE sts_number = '{sts}' AND reg_number = '{reg}'
     """
-    item_tuple = (sts, reg)
     async with AsyncDatabase(**conf) as db:
-        data = await db.execute(query, item_tuple)
+        data = await db.fetch(query)
     if data:
         return True
     else:
