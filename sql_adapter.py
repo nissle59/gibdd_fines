@@ -189,18 +189,18 @@ async def insert_fines(fines_list):
         dt_discount = convert_to_ts(fine.get('DateDiscount', None))
         dt_create = convert_to_ts(fine.get('DateDecis', None))
         if (dt_discount - datetime.datetime.now()).days > 0:
-            expire_days = (dt_discount - datetime.datetime.now()).days
+            expire_days = int((dt_discount - datetime.datetime.now()).days)
         else:
             expire_days = 0
         if fine.get('enableDiscount', False):
-            summa = fine.get('Summa', 0) / 2
+            summa = int(round(fine.get('Summa', 0) / 2,0))
         else:
-            summa = fine.get('Summa', 0)
+            summa = int(round(fine.get('Summa', 0),0))
         fines_list_arr.append(
             (
                 dt_discount,
                 fine.get('KoAPcode', '0').replace('ч.', '.'),
-                fine.get('Division'),
+                int(fine.get('Division',0)),
                 fine.get('KoAPtext'),
                 dt_create,
                 expire_days,
