@@ -7,7 +7,7 @@ INSERT INTO
 			    law_part_description  -- KoAPtext
 			)
 		VALUES (
-			$1, $2, $3
+			$1, $2, $3,
 		    $4,
 		    $4
 		)
