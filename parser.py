@@ -111,6 +111,11 @@ class Fines:
                     time.sleep(1)
                     self.captcha = None
                     return self.get_fines(regnum, sts)
+                if res.get('status', 200) == 404:
+                    try:
+                        asyncio.run(sql_adapter.set_pair_invalid(sts, regnum))
+                    except Exception as e:
+                        config.logger.error(e)
                 #res_status = res.get('RequestResult', {'status': 'ERROR'}).get('status', 'ERROR')
                 if len(res['data']) == 0:
                     result = []

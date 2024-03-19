@@ -213,9 +213,10 @@ async def insert_fines(fines_list):
         )
     async with AsyncDatabase(**conf) as db:
         data = await db.executemany(query, fines_list_arr)
-    config.logger.info(data)
+    # config.logger.info(data)
+    await update_pair(fines_list['sts'], fines_list['regnum'])
     if data:
-        await update_pair(fines_list['sts'], fines_list['regnum'])
+
         return data
     else:
         return []
