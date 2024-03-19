@@ -217,6 +217,7 @@ async def insert_fines(fines_list):
                     updated_at = CURRENT_TIMESTAMP
                 WHERE sts_number = '{sts}' AND reg_number = '{reg}'
             """
+    config.logger.info(upd_query)
     async with AsyncDatabase(**conf) as db:
         data = await db.executemany(query, fines_list_arr)
     # config.logger.info(data)
