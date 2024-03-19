@@ -159,7 +159,7 @@ def process_thread(cars: list):
                 if v.proxy:
                     config.logger.debug(f'Trying proxy {v.proxy["http"]}')
                 try:
-                    asyncio.run(sql_adapter.touch_pair(reg, sts))
+                    asyncio.run(sql_adapter.touch_pair(sts, reg))
                 except Exception as e:
                     config.logger.error(e)
                 car = v.get_fines(reg, sts)
