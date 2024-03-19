@@ -136,7 +136,7 @@ class Fines:
                     if r.status_code('code', 200) in ['201', 201]:
                         print(r.content)
                     else:
-                        with open(f'responses/{sts}.txt', 'w') as f:
+                        with open(f'responses/{sts}.txt', 'w', encoding='utf-8') as f:
                             ex = ''
                             for arg in e.args:
                                 ex += arg + '\n'
