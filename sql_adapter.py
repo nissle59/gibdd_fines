@@ -283,6 +283,7 @@ async def touch_pair(sts, reg):
                 touched_at = CURRENT_TIMESTAMP
             WHERE sts_number = '{sts}' AND reg_number = '{reg}'
         """
+    config.logger.info(query)
     async with AsyncDatabase(**conf) as db:
         data = await db.fetch(query)
     if data:

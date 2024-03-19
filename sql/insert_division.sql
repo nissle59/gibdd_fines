@@ -3,7 +3,7 @@ INSERT INTO
 				id,
 			    name
 			)
-		VALUES ($1::int4,
+VALUES ($1::int4,
                 $2::text
 		)
 		on conflict (id)
