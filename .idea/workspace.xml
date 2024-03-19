@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c992a14d-dbe7-4cc8-ab42-bf7187a1669a" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/start.sh" beforeDir="false" afterPath="$PROJECT_DIR$/start.sh" afterDir="false" />
+    <list default="true" id="c992a14d-dbe7-4cc8-ab42-bf7187a1669a" name="Changes" comment="Upd">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sql/insert_fine.sql" beforeDir="false" afterPath="$PROJECT_DIR$/sql/insert_fine.sql" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -94,7 +95,7 @@
       <updated>1710832312718</updated>
       <workItem from="1710832316991" duration="316000" />
       <workItem from="1710832654350" duration="13036000" />
-      <workItem from="1710848296191" duration="1638000" />
+      <workItem from="1710848296191" duration="2286000" />
     </task>
     <task id="LOCAL-00001" summary="Upd">
       <option name="closed" value="true" />
@@ -128,7 +129,47 @@
       <option name="project" value="LOCAL" />
       <updated>1710849864231</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Upd">
+      <option name="closed" value="true" />
+      <created>1710849986391</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1710849986391</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Upd">
+      <option name="closed" value="true" />
+      <created>1710850141841</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1710850141841</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Upd">
+      <option name="closed" value="true" />
+      <created>1710850297828</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1710850297828</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Upd">
+      <option name="closed" value="true" />
+      <created>1710850468241</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1710850468241</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Upd">
+      <option name="closed" value="true" />
+      <created>1710850528890</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1710850528890</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

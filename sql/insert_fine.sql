@@ -30,14 +30,14 @@ INSERT INTO
 		do update set
 		    discount_date = $1::timestamp, -- DateDiscount
             law = $2,           -- KoAPcode . replace('ч.','.')
-            division_id = $3,   -- Division
+            division_id = $3::int4,   -- Division
             description = $4,    -- KoAPtext
             create_time = $5::timestamp,    -- DateDecis
-            discount_expire_days =$6, -- (DateDiscount) - now() if > 0
-            total_amount = $7,         -- if(enableDisount): Summa / 2 else: Summa
-            amount_to_pay = $8,        -- if(enableDisount): Summa / 2 else: Summa
-            law_description = $10,      -- KoAPtext
-            is_active_discount = $11    -- enableDiscount
+            discount_expire_days =$6::int4, -- (DateDiscount) - now() if > 0
+            total_amount = $7::int4,         -- if(enableDisount): Summa / 2 else: Summa
+            amount_to_pay = $7::int4,        -- if(enableDisount): Summa / 2 else: Summa
+            law_description = $4,      -- KoAPtext
+            is_active_discount = $9    -- enableDiscount
 		RETURNING 
 			resolution_number,
             amount_to_pay,
