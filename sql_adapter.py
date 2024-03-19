@@ -185,6 +185,7 @@ async def insert_fines(fines_list):
     with open('sql/insert_fine.sql', 'r', encoding='utf-8') as f:
         query = f.read()
     fines_list_arr = []
+    sts = fines_list['sts']
     for fine in fines_list['data']:
         dt_discount = convert_to_ts(fine.get('DateDiscount', None))
         dt_create = convert_to_ts(fine.get('DateDecis', None))
@@ -206,12 +207,13 @@ async def insert_fines(fines_list):
                 expire_days,
                 summa,
                 fine.get('SupplierBillID', None),
-                fine.get('enableDiscount', False)
+                fine.get('enableDiscount', False),
+                sts
             )
         )
     async with AsyncDatabase(**conf) as db:
         data = await db.executemany(query, fines_list_arr)
-
+    config.logger.info(data)
     if data:
         await update_pair(fines_list['sts'], fines_list['regnum'])
         return data
