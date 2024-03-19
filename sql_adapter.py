@@ -182,50 +182,63 @@ def get_cars_from_file():
 
 
 async def insert_fines(fines_list):
-    with open('sql/insert_fine.sql', 'r', encoding='utf-8') as f:
-        query = f.read()
-    fines_list_arr = []
-    sts = fines_list['sts']
-    reg = fines_list['regnum']
-    for fine in fines_list['data']:
-        dt_discount = convert_to_ts(fine.get('DateDiscount', None))
-        dt_create = convert_to_ts(fine.get('DateDecis', None))
-        if (dt_discount - datetime.datetime.now()).days > 0:
-            expire_days = int((dt_discount - datetime.datetime.now()).days)
-        else:
-            expire_days = 0
-        if fine.get('enableDiscount', False):
-            summa = int(round(fine.get('Summa', 0) / 2,0))
-        else:
-            summa = int(round(fine.get('Summa', 0),0))
-        fines_list_arr.append(
-            (
-                dt_discount,
-                fine.get('KoAPcode', '0').replace('ч.', '.'),
-                int(fine.get('Division',0)),
-                fine.get('KoAPtext'),
-                dt_create,
-                expire_days,
-                summa,
-                fine.get('SupplierBillID', None),
-                fine.get('enableDiscount', False),
-                sts
-            )
-        )
-    upd_query = f"""
-                UPDATE fines_base.sts_regnumbers SET 
-                    updated_at = CURRENT_TIMESTAMP
-                WHERE sts_number = '{sts}' AND reg_number = '{reg}'
-            """
-    # config.logger.info(upd_query)
     async with AsyncDatabase(**conf) as db:
+        with open('sql/insert_fine.sql', 'r', encoding='utf-8') as f:
+            query = f.read()
+        fines_list_arr = []
+        sts = fines_list['sts']
+        reg = fines_list['regnum']
+        uins_q = f"SELECT resolution_number FROM fines_base.fines WHERE sts_number = '{sts}'"
+        base_data = await db.fetch(uins_q)
+        base_data = [item['resolution_number'] for item in list_detector_to_list(base_data)]
+        set_done = []
+        new_data = [fine['SupplierBillID'] for fine in fines_list['data']]
+        for uin in base_data:
+            if uin not in new_data:
+                set_done.append(uin)
+        if len(set_done) > 0:
+            s = f"('{'\',\''.join(set_done)}')"
+            done_q = f"update fines_base.fines set status = 'done' where resolution_number in {s}"
+            done_data = await db.fetch(done_q)
+        for fine in fines_list['data']:
+            dt_discount = convert_to_ts(fine.get('DateDiscount', None))
+            dt_create = convert_to_ts(fine.get('DateDecis', None))
+            if (dt_discount - datetime.datetime.now()).days > 0:
+                expire_days = int((dt_discount - datetime.datetime.now()).days)
+            else:
+                expire_days = 0
+            if fine.get('enableDiscount', False):
+                summa = int(round(fine.get('Summa', 0) / 2, 0))
+            else:
+                summa = int(round(fine.get('Summa', 0), 0))
+            fines_list_arr.append(
+                (
+                    dt_discount,
+                    fine.get('KoAPcode', '0').replace('ч.', '.'),
+                    int(fine.get('Division', 0)),
+                    fine.get('KoAPtext'),
+                    dt_create,
+                    expire_days,
+                    summa,
+                    fine.get('SupplierBillID', None),
+                    fine.get('enableDiscount', False),
+                    sts
+                )
+            )
+        upd_query = f"""
+                    UPDATE fines_base.sts_regnumbers SET 
+                        updated_at = CURRENT_TIMESTAMP
+                    WHERE sts_number = '{sts}' AND reg_number = '{reg}'
+                """
+        # config.logger.info(upd_query)
+
         data = await db.executemany(query, fines_list_arr)
-    # config.logger.info(data)
+        # config.logger.info(data)
         u_data = await db.fetch(upd_query)
-    if data and u_data:
-        return data
-    else:
-        return []
+        if data and u_data:
+            return data
+        else:
+            return []
 
 
 async def insert_divisions(fines_list):
