@@ -3,7 +3,7 @@ INSERT INTO
 				discount_date, -- DateDiscount
 				law,           -- KoAPcode . replace('ч.','.')
 				division_id,   -- Division
-				description,    -- KoAPtext
+    --description,    -- KoAPtext
 				create_time,    -- DateDecis
 				discount_expire_days, -- (DateDiscount) - now() if > 0
 				total_amount,         -- if(enableDisount): Summa / 2 else: Summa
@@ -17,7 +17,7 @@ INSERT INTO
 			$1::timestamp,	--discount_date			:: int4->timestamp
 			$2,					--law					:: text
             $3,                 --division_id      	    :: int4(8)
-			$4,	                --description		    :: text
+                   --$4,	                --description		    :: text
             $5::timestamp, --create_time	        :: int4->timestamp
 			$6,					--discount_expire_days	:: int4
 			$7,					--total_amount			:: int4
@@ -32,7 +32,7 @@ INSERT INTO
 		    discount_date = $1::timestamp, -- DateDiscount
             law = $2,           -- KoAPcode . replace('ч.','.')
             division_id = $3::int4,   -- Division
-            description = $4,    -- KoAPtext
+                       --description = $4,    -- KoAPtext
             create_time = $5::timestamp,    -- DateDecis
             discount_expire_days =$6::int4, -- (DateDiscount) - now() if > 0
             total_amount = $7::int4,         -- if(enableDisount): Summa / 2 else: Summa
