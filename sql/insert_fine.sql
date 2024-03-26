@@ -11,7 +11,9 @@ INSERT INTO
 				resolution_number,    -- SupplierBillID
 				law_description,      -- KoAPtext
                 is_active_discount, -- enableDiscount
-                sts_number
+                sts_number,
+                offence_at,
+                resolution_date
 			) 
 		VALUES (
 			$1::timestamp,	--discount_date			:: int4->timestamp
@@ -25,7 +27,9 @@ INSERT INTO
 			$8,					--resolution_number		:: text
 			$4,	                --law_description		:: text
             $9, --is_active_discount	:: bool
-            $10
+            $10,
+            $5::timestamp,
+            $11::date
 		) 
 		on conflict (resolution_number) 
 		do update set
@@ -39,7 +43,9 @@ INSERT INTO
             amount_to_pay = $7::int4,        -- if(enableDisount): Summa / 2 else: Summa
             law_description = $4,      -- KoAPtext
             is_active_discount = $9, -- enableDiscount
-            sts_number         = $10
+                       sts_number = $10,
+                       offence_at = $5: timestamp,
+                       resolution_date = $11: date
 		RETURNING 
 			resolution_number,
             amount_to_pay,

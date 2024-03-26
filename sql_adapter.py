@@ -213,6 +213,7 @@ async def insert_fines(fines_list):
         for fine in fines_list['data']:
             dt_discount = convert_to_ts(fine.get('DateDiscount', None))
             dt_create = convert_to_ts(fine.get('DateDecis', None))
+            dt_post = convert_to_ts(fine.get('DatePost', None), short=True)
             if (dt_discount - datetime.datetime.now()).days > 0:
                 expire_days = int((dt_discount - datetime.datetime.now()).days)
             else:
@@ -232,7 +233,8 @@ async def insert_fines(fines_list):
                     summa,
                     fine.get('SupplierBillID', None),
                     fine.get('enableDiscount', False),
-                    sts
+                    sts,
+                    dt_post
                 )
             )
         upd_query = f"""
