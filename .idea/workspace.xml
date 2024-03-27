@@ -4,8 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c992a14d-dbe7-4cc8-ab42-bf7187a1669a" name="Changes" comment="">
+    <list default="true" id="c992a14d-dbe7-4cc8-ab42-bf7187a1669a" name="Changes" comment="Upd">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/config.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/parser.py" beforeDir="false" afterPath="$PROJECT_DIR$/parser.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sql/insert_fine.sql" beforeDir="false" afterPath="$PROJECT_DIR$/sql/insert_fine.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sql_adapter.py" beforeDir="false" afterPath="$PROJECT_DIR$/sql_adapter.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -27,27 +30,28 @@
     <option name="showLibraryContents" value="true" />
     <option name="showMembers" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Python.service.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Python.service.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "master",
+    "last_opened_file_path": "C:/Users/nissl/PycharmProjects/fines",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "advanced.settings",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;postgresql&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "postgresql"
     ]
   }
-}</component>
+}]]></component>
   <component name="RunManager">
     <configuration name="service" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="gibdd_fines" />
@@ -95,7 +99,11 @@
       <updated>1710832312718</updated>
       <workItem from="1710832316991" duration="316000" />
       <workItem from="1710832654350" duration="13036000" />
-      <workItem from="1710848296191" duration="6778000" />
+      <workItem from="1710848296191" duration="8740000" />
+      <workItem from="1710999739262" duration="417000" />
+      <workItem from="1711365168061" duration="91000" />
+      <workItem from="1711476829772" duration="633000" />
+      <workItem from="1711527587033" duration="2966000" />
     </task>
     <task id="LOCAL-00001" summary="Upd">
       <option name="closed" value="true" />
@@ -265,7 +273,79 @@
       <option name="project" value="LOCAL" />
       <updated>1710855251502</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="Upd">
+      <option name="closed" value="true" />
+      <created>1710855475251</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1710855475251</updated>
+    </task>
+    <task id="LOCAL-00023" summary="Upd">
+      <option name="closed" value="true" />
+      <created>1710855608635</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1710855608635</updated>
+    </task>
+    <task id="LOCAL-00024" summary="Upd">
+      <option name="closed" value="true" />
+      <created>1710855642856</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1710855642856</updated>
+    </task>
+    <task id="LOCAL-00025" summary="Upd">
+      <option name="closed" value="true" />
+      <created>1711365246275</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1711365246276</updated>
+    </task>
+    <task id="LOCAL-00026" summary="Upd">
+      <option name="closed" value="true" />
+      <created>1711477289708</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1711477289708</updated>
+    </task>
+    <task id="LOCAL-00027" summary="Upd">
+      <option name="closed" value="true" />
+      <created>1711527846376</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1711527846376</updated>
+    </task>
+    <task id="LOCAL-00028" summary="Upd">
+      <option name="closed" value="true" />
+      <created>1711528025219</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1711528025219</updated>
+    </task>
+    <task id="LOCAL-00029" summary="Upd">
+      <option name="closed" value="true" />
+      <created>1711528181571</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1711528181571</updated>
+    </task>
+    <task id="LOCAL-00030" summary="Upd">
+      <option name="closed" value="true" />
+      <created>1711528231825</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1711528231825</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

@@ -19,6 +19,7 @@ proxies = []
 r_proxies = cycle(proxies)
 threads = 15
 touched_at = 7
+fines_total = []
 
 # rc = Redis(host='redis.local', username='default', password='redispwd')
 # queue = Queue(connection=rc, name='vin-queue')

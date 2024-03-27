@@ -222,6 +222,7 @@ async def insert_fines(fines_list):
             #     summa = int(round(fine.get('Summa', 0) / 2, 0))
             # else:
             summa = int(round(fine.get('Summa', 0), 0))
+            config.fines_total.append(fine.get('SupplierBillID', None))
             fines_list_arr.append(
                 (
                     dt_discount,

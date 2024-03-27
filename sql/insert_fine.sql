@@ -3,7 +3,6 @@ INSERT INTO
 				discount_date, -- DateDiscount
 				law,           -- KoAPcode . replace('ч.','.')
 				division_id,   -- Division
-    --description,    -- KoAPtext
 				create_time,    -- DateDecis
 				discount_expire_days, -- (DateDiscount) - now() if > 0
 				total_amount,         -- if(enableDisount): Summa / 2 else: Summa

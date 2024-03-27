@@ -234,15 +234,17 @@ def mulithreaded_processor(vins: list):
             t1.join()
         stop_dt = datetime.datetime.now()
         dt_diff = (stop_dt - start_dt).total_seconds()
+        config.fines_total = list(set(config.fines_total))
+        len_unis = len(config.fines_total)
         if dt_diff > 60:
             dt_m, dt_s = divmod(dt_diff, 60)
-            dt_str = f'{length_of_vins_list} records: {int(dt_m)} minutes {round(dt_s)} seconds passed'
+            dt_str = f'{len_unis} UINs, {length_of_vins_list} records: {int(dt_m)} minutes {round(dt_s)} seconds passed'
         elif dt_diff > 3600:
             dt_m, dt_s = divmod(dt_diff, 60)
             dt_h, dt_m = divmod(dt_m, 60)
-            dt_str = f'{length_of_vins_list} records: {int(dt_h)} hours {int(dt_m)} minutes {round(dt_s)} seconds passed'
+            dt_str = f'{len_unis} UINs, {length_of_vins_list} records: {int(dt_h)} hours {int(dt_m)} minutes {round(dt_s)} seconds passed'
         else:
-            dt_str = f'{length_of_vins_list} records: {round(dt_diff)} seconds passed'
+            dt_str = f'{len_unis} UINs, {length_of_vins_list} records: {round(dt_diff)} seconds passed'
         config.logger.info(dt_str)
     else:
         config.logger.info(f'VINs list is empty. All VINs are up to date.')
