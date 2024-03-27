@@ -44,8 +44,8 @@ INSERT INTO
             law_description = $4,      -- KoAPtext
             is_active_discount = $9, -- enableDiscount
                        sts_number = $10,
-                       offence_at = $5: timestamp,
-                       resolution_date = $11: date
+               offence_at = $5:: timestamp,
+               resolution_date = $11:: date
 		RETURNING 
 			resolution_number,
             amount_to_pay,
