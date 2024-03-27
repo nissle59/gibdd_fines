@@ -43,7 +43,7 @@ INSERT INTO
             amount_to_pay = $7::int4,        -- if(enableDisount): Summa / 2 else: Summa
             law_description = $4,      -- KoAPtext
             is_active_discount = $9, -- enableDiscount
-                       sts_number = $10,
+               sts_number = $10,
                offence_at = $5:: timestamp,
                resolution_date = $11:: date
 		RETURNING 
