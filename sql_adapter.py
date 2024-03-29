@@ -214,8 +214,11 @@ async def insert_fines(fines_list):
             dt_discount = convert_to_ts(fine.get('DateDiscount', None))
             dt_create = convert_to_ts(fine.get('DateDecis', None))
             dt_post = convert_to_ts(fine.get('DatePost', None), short=True)
-            if (dt_discount - datetime.datetime.now()).days > 0:
-                expire_days = int((dt_discount - datetime.datetime.now()).days)
+            if dt_discount:
+                if (dt_discount - datetime.datetime.now()).days > 0:
+                    expire_days = int((dt_discount - datetime.datetime.now()).days)
+                else:
+                    expire_days = 0
             else:
                 expire_days = 0
             # if fine.get('enableDiscount', False):
