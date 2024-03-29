@@ -13,7 +13,7 @@ INSERT INTO
                 sts_number,
                 offence_at,
                 resolution_date,
-                gibdd
+                from_gibdd
 			) 
 		VALUES (
 			$1::timestamp,	--discount_date			:: int4->timestamp
@@ -47,7 +47,7 @@ INSERT INTO
             sts_number      = $10, -- sts
             offence_at      = $5::timestamp, --DateDecis
             resolution_date = $11::date, --DatePost
-            gibdd           = true
+            from_gibdd = true
 		RETURNING 
 			resolution_number,
             amount_to_pay,
