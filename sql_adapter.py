@@ -282,7 +282,10 @@ async def insert_laws(fines_list):
     for fine in fines_list['data']:
         id = fine.get('KoAPcode', '0').replace('ч.', '.')
         number = fine.get('KoAPcode', '0').split('ч.')[0]
-        part = fine.get('KoAPcode', '0').split('ч.')[1]
+        try:
+            part = fine.get('KoAPcode', '0').split('ч.')[1]
+        except:
+            part = None
         fines_list_arr.append(
             (
                 id, number, part,

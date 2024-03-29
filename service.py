@@ -136,4 +136,4 @@ if __name__ == "__main__":
     for i in range(random.randint(0, len(config.proxies))):
         next(config.r_proxies)
     config.logger.info('Updating started')
-    asyncio.run(find_fines('9959403416'))
+    asyncio.run(find_fines('9912035405'))

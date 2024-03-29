@@ -173,18 +173,19 @@ def process_thread(cars: list):
                     config.error(e)
                 car = v.get_fines(reg, sts)
                 #print(json.dumps(car, ensure_ascii=False, indent=2))
-                try:
-                    asyncio.run(sql_adapter.insert_divisions(car))
-                except Exception as e:
-                    config.error(e)
-                try:
-                    asyncio.run(sql_adapter.insert_laws(car))
-                except Exception as e:
-                    config.error(e)
-                try:
-                    asyncio.run(sql_adapter.insert_fines(car))
-                except Exception as e:
-                    config.error(e)
+                if car or len(car) > 0:
+                    try:
+                        asyncio.run(sql_adapter.insert_divisions(car))
+                    except Exception as e:
+                        config.error(e)
+                    try:
+                        asyncio.run(sql_adapter.insert_laws(car))
+                    except Exception as e:
+                        config.error(e)
+                    try:
+                        asyncio.run(sql_adapter.insert_fines(car))
+                    except Exception as e:
+                        config.error(e)
                 break
             except StopIteration:
                 if v.proxy:

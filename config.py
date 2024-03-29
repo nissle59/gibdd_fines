@@ -8,8 +8,8 @@ import requests
 # from rq import Queue, Worker
 
 DATABASE = {
-    'host': '10.8.0.5',
-    # 'host': 'db.local',
+    # 'host': '10.8.0.5',
+    'host': 'db.local',
     'port': 5432,
     'user': 'postgres',
     'pswd': 'psqlpass',
@@ -28,8 +28,10 @@ fines_total = []
 #
 # workers = Worker.all(queue=queue)
 
-
-logging.basicConfig(level=logging.INFO)
+if DATABASE['host'] == 'db.local':
+    logging.basicConfig(level=logging.INFO)
+else:
+    logging.basicConfig(level=logging.DEBUG)
 
 handler = logging.FileHandler('app.log')
 formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
