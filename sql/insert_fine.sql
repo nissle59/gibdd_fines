@@ -12,7 +12,8 @@ INSERT INTO
                 is_active_discount, -- enableDiscount
                 sts_number,
                 offence_at,
-                resolution_date
+                resolution_date,
+                gibdd
 			) 
 		VALUES (
 			$1::timestamp,	--discount_date			:: int4->timestamp
@@ -28,7 +29,8 @@ INSERT INTO
             $9, --is_active_discount	:: bool
             $10,
             $5::timestamp,
-            $11::date
+            $11::date,
+            true
 		) 
 		on conflict (resolution_number) 
 		do update set
@@ -44,7 +46,8 @@ INSERT INTO
             is_active_discount = $9, -- enableDiscount
             sts_number      = $10, -- sts
             offence_at      = $5::timestamp, --DateDecis
-            resolution_date = $11::date --DatePost
+            resolution_date = $11::date, --DatePost
+            gibdd           = true
 		RETURNING 
 			resolution_number,
             amount_to_pay,
