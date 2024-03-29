@@ -156,7 +156,7 @@ def process_thread(cars: list):
         config.r_proxies = cycle(config.proxies)
         prx = next(config.r_proxies)
     v = Fines(prx)
-    for car in cars:
+    for car in cars[0]:
         config.logger.info(car)
         reg = car['reg']
         sts = car['sts']
