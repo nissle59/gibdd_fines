@@ -145,7 +145,8 @@ class Fines:
                     result = None
                 except Exception as e:
                     config.logger.info(e)
-                    config.error(f'{sts} - Failed')
+                    # config.error(f'{sts} - Failed')
+                    config.failed_list.append(sts)
                     result = None
             return result
 
@@ -201,6 +202,7 @@ def process_thread(cars: list):
 
 
 def mulithreaded_processor(vins: list):
+    config.failed_list = []
     start_dt = datetime.datetime.now()
     length_of_vins_list = len(vins)
     if length_of_vins_list > 0:
@@ -251,6 +253,10 @@ def mulithreaded_processor(vins: list):
         else:
             dt_str = f'{len_unis} UINs, {length_of_vins_list} records: {round(dt_diff)} seconds passed'
         config.logger.info(dt_str)
+        config.failed_list = list(set(config.failed_list))
+        if len(config.failed_list) > 0:
+            s = f'Failed sts: {len(config.failed_list)}\nCodes: {", ".join(config.failed_list)}'
+            config.error(s)
     else:
         config.logger.info(f'VINs list is empty. All VINs are up to date.')
 
