@@ -119,9 +119,9 @@ async def update_proxies():
 
 
 async def find_fines(search: str):
-    car = await sql_adapter.find_car(search)
-    if len(car) > 0:
-        parser.process_thread([car])
+    cars = await sql_adapter.find_car(search)
+    if len(cars) > 0:
+        parser.process_thread([cars])
 
 
 
