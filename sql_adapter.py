@@ -330,7 +330,8 @@ async def touch_pair(sts, reg):
 async def update_pair(sts, reg):
     query = f"""
             UPDATE fines_base.sts_regnumbers SET 
-                updated_at = CURRENT_TIMESTAMP
+                updated_at = CURRENT_TIMESTAMP,
+                last_checked_at = CURRENT_TIMESTAMP
             WHERE sts_number = '{sts}' AND reg_number = '{reg}'
         """
     async with AsyncDatabase(**conf) as db:
