@@ -1,5 +1,6 @@
 import asyncio
 import datetime
+import json
 import threading
 import time
 import warnings
@@ -116,7 +117,7 @@ class Fines:
                         config.logger.info(f'Need to set invalid pair [{sts} - {regnum}]')
                         asyncio.run(sql_adapter.set_pair_invalid(sts, regnum))
                     except Exception as e:
-                        config.logger.error(e)
+                        config.error(e)
                 #res_status = res.get('RequestResult', {'status': 'ERROR'}).get('status', 'ERROR')
                 if len(res['data']) == 0:
                     result = []
@@ -144,7 +145,7 @@ class Fines:
                     result = None
                 except Exception as e:
                     config.logger.info(e)
-                    config.logger.error(f'{sts} - Failed')
+                    config.error(f'{sts} - Failed')
                     result = None
             return result
 
@@ -157,7 +158,7 @@ def process_thread(cars: list):
         prx = next(config.r_proxies)
     v = Fines(prx)
     for car in cars:
-        config.logger.info(car)
+        # config.logger.info(car)
         reg = car['reg']
         sts = car['sts']
         c = 0
@@ -169,20 +170,21 @@ def process_thread(cars: list):
                 try:
                     asyncio.run(sql_adapter.touch_pair(sts, reg))
                 except Exception as e:
-                    config.logger.error(e)
+                    config.error(e)
                 car = v.get_fines(reg, sts)
+                #print(json.dumps(car, ensure_ascii=False, indent=2))
                 try:
                     asyncio.run(sql_adapter.insert_divisions(car))
-                except:
-                    pass
+                except Exception as e:
+                    config.error(e)
                 try:
                     asyncio.run(sql_adapter.insert_laws(car))
-                except:
-                    pass
+                except Exception as e:
+                    config.error(e)
                 try:
                     asyncio.run(sql_adapter.insert_fines(car))
-                except:
-                    pass
+                except Exception as e:
+                    config.error(e)
                 break
             except StopIteration:
                 if v.proxy:
@@ -190,7 +192,7 @@ def process_thread(cars: list):
                     v.proxy = next(config.r_proxies)
                 c += 1
             except Exception as e:
-                config.logger.error(e)
+                config.error(e)
                 if v.proxy:
                     v.proxy = next(config.r_proxies)
                 c += 1

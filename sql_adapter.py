@@ -200,7 +200,7 @@ async def insert_fines(fines_list):
         reg = fines_list['regnum']
         uins_q = f"SELECT resolution_number FROM fines_base.fines WHERE sts_number = '{sts}'"
         base_data = await db.fetch(uins_q)
-        base_data = [item['resolution_number'] for item in list_detector_to_list(base_data)]
+        base_data = [item['resolutionNumber'] for item in list_detector_to_list(base_data)]
         set_done = []
         new_data = [fine['SupplierBillID'] for fine in fines_list['data']]
         for uin in base_data:
@@ -238,6 +238,7 @@ async def insert_fines(fines_list):
                     dt_post
                 )
             )
+        # [config.logger.debug(str(fine)) for fine in fines_list_arr]
         upd_query = f"""
                     UPDATE fines_base.sts_regnumbers SET 
                         updated_at = CURRENT_TIMESTAMP
@@ -261,8 +262,8 @@ async def insert_divisions(fines_list):
     for fine in fines_list['divisions']:
         fines_list_arr.append(
             (
-                fine,
-                fines_list['divisions']['fine']['name']
+                int(fine),
+                fines_list['divisions'][fine]['name']
             )
         )
     async with AsyncDatabase(**conf) as db:

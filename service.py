@@ -51,7 +51,7 @@ def test():
                 if tc.proxy:
                     config.logger.debug(f'Trying proxy {tc.proxy["http"]}')
                 car = tc.get_fines(reg, sts)
-                config.logger.info(json.dumps(car, ensure_ascii=False, indent=2, default=str, sort_keys=True))
+                config.logger.debug(json.dumps(car, ensure_ascii=False, indent=2, default=str, sort_keys=True))
                 break
             except StopIteration:
                 if tc.proxy:
@@ -59,7 +59,7 @@ def test():
                     tc.proxy = next(config.r_proxies)
                 c += 1
             except Exception as e:
-                config.logger.error(e)
+                config.error(e)
                 if tc.proxy:
                     tc.proxy = next(config.r_proxies)
                 c += 1
@@ -132,6 +132,8 @@ async def find_fines(search: str):
 if __name__ == "__main__":
     #asyncio.run(sql_adapter.get_proxies_to_file())
     #sql_adapter.get_cars_to_file()
-    test()
-
-
+    asyncio.run(update_proxies())
+    for i in range(random.randint(0, len(config.proxies))):
+        next(config.r_proxies)
+    config.logger.info('Updating started')
+    asyncio.run(find_fines('9959403416'))
