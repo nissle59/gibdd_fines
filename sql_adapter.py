@@ -212,6 +212,7 @@ async def insert_fines(fines_list):
             done_data = await db.fetch(done_q)
         for fine in fines_list['data']:
             dt_discount = convert_to_ts(fine.get('DateDiscount', None))
+            dt_ssp = convert_to_ts(fine.get('DateSSP', None), short=True)
             dt_create = convert_to_ts(fine.get('DateDecis', None))
             dt_post = convert_to_ts(fine.get('DatePost', None), short=True)
             if dt_discount:
@@ -238,7 +239,8 @@ async def insert_fines(fines_list):
                     fine.get('SupplierBillID', None),
                     fine.get('enableDiscount', False),
                     sts,
-                    dt_post
+                    dt_post,
+                    dt_ssp
                 )
             )
         # [config.logger.debug(str(fine)) for fine in fines_list_arr]

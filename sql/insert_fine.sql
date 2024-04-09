@@ -13,6 +13,7 @@ INSERT INTO
                 sts_number,
                 offence_at,
                 resolution_date,
+                transfer_fssp_date,
                 from_gibdd
 			) 
 		VALUES (
@@ -30,6 +31,7 @@ INSERT INTO
             $10,
             $5::timestamp,
             $11::date,
+            $12::date,
             true
 		) 
 		on conflict (resolution_number) 
@@ -47,6 +49,7 @@ INSERT INTO
             sts_number      = $10, -- sts
             offence_at      = $5::timestamp, --DateDecis
             resolution_date = $11::date, --DatePost
+            transfer_fssp_date = $12::date, --DateSSP
             from_gibdd = true
 		RETURNING 
 			resolution_number,
