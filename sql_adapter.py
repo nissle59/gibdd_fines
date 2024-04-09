@@ -246,7 +246,7 @@ async def insert_fines(fines_list):
         # [config.logger.debug(str(fine)) for fine in fines_list_arr]
         upd_query = f"""
                     UPDATE fines_base.sts_regnumbers SET 
-                        updated_at = CURRENT_TIMESTAMP
+                        updated_at = CURRENT_TIMESTAMP, last_checked_at = CURRENT_TIMESTAMP
                     WHERE sts_number = '{sts}' AND reg_number = '{reg}'
                 """
         # config.logger.info(upd_query)

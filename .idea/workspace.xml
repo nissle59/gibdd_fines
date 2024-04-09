@@ -6,8 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="c992a14d-dbe7-4cc8-ab42-bf7187a1669a" name="Changes" comment="Upd">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/config.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/parser.py" beforeDir="false" afterPath="$PROJECT_DIR$/parser.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sql_adapter.py" beforeDir="false" afterPath="$PROJECT_DIR$/sql_adapter.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,7 +34,7 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/nissl/PycharmProjects/fines&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/nissl/PycharmProjects/gosuslugiApi&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -105,7 +104,12 @@
       <workItem from="1711603738460" duration="56000" />
       <workItem from="1711713263364" duration="161000" />
       <workItem from="1711717118389" duration="4018000" />
-      <workItem from="1711729143498" duration="1804000" />
+      <workItem from="1711729143498" duration="3017000" />
+      <workItem from="1712121186955" duration="1309000" />
+      <workItem from="1712339853008" duration="477000" />
+      <workItem from="1712640754577" duration="50000" />
+      <workItem from="1712647979206" duration="2089000" />
+      <workItem from="1712679109012" duration="463000" />
     </task>
     <task id="LOCAL-00001" summary="Upd">
       <option name="closed" value="true" />
@@ -459,7 +463,31 @@
       <option name="project" value="LOCAL" />
       <updated>1711730687635</updated>
     </task>
-    <option name="localTasksCounter" value="45" />
+    <task id="LOCAL-00045" summary="Upd">
+      <option name="closed" value="true" />
+      <created>1711731044574</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1711731044575</updated>
+    </task>
+    <task id="LOCAL-00046" summary="Upd">
+      <option name="closed" value="true" />
+      <created>1712650179883</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1712650179883</updated>
+    </task>
+    <task id="LOCAL-00047" summary="Upd">
+      <option name="closed" value="true" />
+      <created>1712650356034</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1712650356034</updated>
+    </task>
+    <option name="localTasksCounter" value="48" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
