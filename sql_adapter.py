@@ -212,8 +212,7 @@ async def insert_fines(fines_list):
             done_q = f"update fines_base.fines set status = 'done', done_date=COALESCE(fines_base.fines.done_date, CURRENT_TIMESTAMP)  where resolution_number = $1"
             await db.executemany(done_q, (datetime.datetime.now(), [(s,) for s in set_done]))
 
-
-            done_data = await db.fetch(done_q)
+            # done_data = await db.fetch(done_q)
         for fine in fines_list['data']:
             dt_discount = convert_to_ts(fine.get('DateDiscount', None))
             dt_ssp = convert_to_ts(fine.get('DateSSP', None), short=True)
