@@ -207,8 +207,12 @@ async def insert_fines(fines_list):
             if uin not in new_data:
                 set_done.append(uin)
         if len(set_done) > 0:
-            s = f"('{'\',\''.join(set_done)}')"
-            done_q = f"update fines_base.fines set status = 'done' where resolution_number in {s}"
+            # s = f"('{'\',\''.join(set_done)}')"
+
+            done_q = f"update fines_base.fines set status = 'done', done_date=COALESCE(fines_base.fines.done_date, CURRENT_TIMESTAMP)  where resolution_number = $1"
+            await db.executemany(done_q, (datetime.datetime.now(), [(s,) for s in set_done]))
+
+
             done_data = await db.fetch(done_q)
         for fine in fines_list['data']:
             dt_discount = convert_to_ts(fine.get('DateDiscount', None))
