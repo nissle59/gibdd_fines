@@ -123,6 +123,9 @@ async def find_fines(search: str | list):
     if isinstance(search, str):
         if search.find(',') > 0:
             search = search.split(',')
+            for item in search:
+                cars.extend(await sql_adapter.find_car(item))
+        else:
             cars.extend(await sql_adapter.find_car(search))
     elif isinstance(search, list):
         for item in search:
