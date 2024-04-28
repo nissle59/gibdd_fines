@@ -239,6 +239,8 @@ def mulithreaded_processor(vins: list):
             t1 = threading.Thread(target=process_thread, args=(vins,), daemon=True)
             t1.start()
             t1.join()
+            config.logger.info(
+                f'Joined thread #1 of 1 with {len(vins)} cars')
         stop_dt = datetime.datetime.now()
         dt_diff = (stop_dt - start_dt).total_seconds()
         config.fines_total = list(set(config.fines_total))
