@@ -8,8 +8,8 @@ import requests
 # from rq import Queue, Worker
 
 DATABASE = {
-    # 'host': '10.8.0.5',
-    'host': 'db.local',
+    'host': '10.8.0.5',
+    # 'host': 'db.local',
     'port': 5432,
     'user': 'postgres',
     'pswd': 'psqlpass',
