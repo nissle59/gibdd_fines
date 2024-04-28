@@ -118,8 +118,13 @@ async def update_proxies():
     #return await sql_adapter.update_proxies(proxies)
 
 
-async def find_fines(search: str):
-    cars = await sql_adapter.find_car(search)
+async def find_fines(search: str | list):
+    cars = []
+    if isinstance(search, str):
+        cars.extend(await sql_adapter.find_car(search))
+    elif isinstance(search, list):
+        for item in search:
+            cars.extend(await sql_adapter.find_car(item))
     if len(cars) > 0:
         print(cars)
         parser.mulithreaded_processor(cars)
