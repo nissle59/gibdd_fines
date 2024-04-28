@@ -121,7 +121,9 @@ async def update_proxies():
 async def find_fines(search: str | list):
     cars = []
     if isinstance(search, str):
-        cars.extend(await sql_adapter.find_car(search))
+        if search.find(',') > 0:
+            search = search.split(',')
+            cars.extend(await sql_adapter.find_car(search))
     elif isinstance(search, list):
         for item in search:
             cars.extend(await sql_adapter.find_car(item))
