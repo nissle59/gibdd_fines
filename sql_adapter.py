@@ -243,7 +243,8 @@ async def insert_fines(fines_list):
                     fine.get('enableDiscount', False),
                     sts,
                     dt_post,
-                    dt_ssp
+                    dt_ssp,
+                    fine.get('picsToken', None)
                 )
             )
         # [config.logger.debug(str(fine)) for fine in fines_list_arr]
