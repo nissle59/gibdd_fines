@@ -128,6 +128,10 @@ class Fines:
                 result['sts'] = sts
                 result['regnum'] = regnum
                 for r in result['data']:
+                    try:
+                        r['picsToken'] = result['cafapPicsToken']
+                    except Exception as e:
+                        r['picsToken'] = None
                     config.logger.info(f'[{self.captcha_iter} - {c_code}] {sts} - {str(r["SupplierBillID"])}')
 
             except Exception as e:
