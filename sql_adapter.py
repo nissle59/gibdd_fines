@@ -244,7 +244,8 @@ async def insert_fines(fines_list):
                     sts,
                     dt_post,
                     dt_ssp,
-                    fine.get('picsToken', None)
+                    fine.get('picsToken', None),
+                    reg
                 )
             )
         # [config.logger.debug(str(fine)) for fine in fines_list_arr]

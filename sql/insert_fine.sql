@@ -16,7 +16,8 @@ INSERT INTO
                 transfer_fssp_date,
                 from_gibdd,
                 penalty_date,
-                pics_token
+                pics_token,
+                reg
 			) 
 		VALUES (
 			$1::timestamp,	--discount_date			:: int4->timestamp
@@ -36,7 +37,8 @@ INSERT INTO
             $12::date,
             true,
             $5::timestamp,
-            $13
+            $13,
+            $14
 		) 
 		on conflict (resolution_number) 
 		do update set
@@ -56,7 +58,8 @@ INSERT INTO
             transfer_fssp_date = $12::date, --DateSSP
             from_gibdd   = true,
             penalty_date = $5::timestamp,
-            pics_token   = $13
+            pics_token = $13,
+            reg        = $14
 		RETURNING 
 			resolution_number,
             amount_to_pay,
