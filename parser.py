@@ -157,6 +157,7 @@ class Fines:
                                     pic_number = photo['type'] + 2
                                     img_t = images.base64_to_image(photo['base64Value'], post, pic_number)
                                     imgs_arr.append(img_t)
+                                config.logger.info(imgs_arr)
                                 sql_adapter.insert_photos(imgs_arr)
                                 json.dump(int_r.json(),
                                           open(f'results/photos-{sts}-{regnum}.json', 'w', encoding='utf-8'),
