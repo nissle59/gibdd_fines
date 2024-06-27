@@ -25,3 +25,5 @@ def base64_to_image(base64_string: str, uin: str, pic_number: int):
     image.save(Path(p / output_filename))
 
     config.logger.info(f'-- {uin} Изображение {str(pic_number)} сохранено как {output_filename}')
+
+    return (uin, output_filename)

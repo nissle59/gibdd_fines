@@ -152,9 +152,12 @@ class Fines:
                                     }
                                 )
                                 photos = int_r.json()['photos']
+                                imgs_arr = []
                                 for photo in photos:
                                     pic_number = photo['type'] + 2
-                                    images.base64_to_image(photo['base64Value'], post, pic_number)
+                                    img_t = images.base64_to_image(photo['base64Value'], post, pic_number)
+                                    imgs_arr.append(img_t)
+                                sql_adapter.insert_photos(imgs_arr)
                                 json.dump(int_r.json(),
                                           open(f'results/photos-{sts}-{regnum}.json', 'w', encoding='utf-8'),
                                           ensure_ascii=False, indent=2)

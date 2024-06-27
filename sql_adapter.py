@@ -191,6 +191,12 @@ async def all_paid(sts):
             return []
 
 
+async def insert_photos(photos_list_of_t):
+    async with AsyncDatabase(**conf) as db:
+        q = "INSERT INTO fines_base.photos(uin, path) VALUES ($1, $2) ON CONFLICT(uin, path) DO NOTHING"
+        await db.executemany(q, photos_list_of_t)
+
+
 async def insert_fines(fines_list):
     async with AsyncDatabase(**conf) as db:
         with open('sql/insert_fine.sql', 'r', encoding='utf-8') as f:
