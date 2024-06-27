@@ -1,11 +1,13 @@
 import logging
 import sys
 from itertools import cycle
-
+from pathlib import Path
 import requests
 
 # from redis import Redis
 # from rq import Queue, Worker
+
+img_base_path = Path('/mnt/FinePhotos/')
 
 DATABASE = {
     # 'host': '10.8.0.5',

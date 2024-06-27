@@ -130,6 +130,30 @@ class Fines:
                 for r in result['data']:
                     try:
                         r['picsToken'] = result['cafapPicsToken']
+                        ######### GET IMAGES ############
+                        try:
+                            if r['enablePics']:
+                                post = r['SupplierBillID']
+                                divid = r['Division']
+                                post_data = {
+                                    'post': post,
+                                    'regnum': regnum,
+                                    'divid': divid,
+                                    'cafapPicsToken': r['picsToken']
+                                }
+                                r = self.session.post(
+                                    url='https://xn--b1afk4ade.xn--90adear.xn--p1ai/proxy/check/fines/pics',
+                                    verify=False,
+                                    data=post_data,
+                                    headers={
+                                        "Content-Type:application/x-www-form-urlencoded;": "charset=UTF-8"
+                                    }
+                                )
+                                json.dump(r.json(), open(f'results/photos-{sts}-{regnum}.json', 'w', encoding='utf-8'),
+                                          ensure_ascii=False, indent=2)
+                        except:
+                            pass
+                        #################################
                     except Exception as e:
                         r['picsToken'] = None
                     config.logger.info(f'[{self.captcha_iter} - {c_code}] {sts} - {str(r["SupplierBillID"])}')
