@@ -146,7 +146,7 @@ class Fines:
                                     verify=False,
                                     data=post_data,
                                     headers={
-                                        "Content-Type:application/x-www-form-urlencoded;": "charset=UTF-8"
+                                        "Content-Type": "application/x-www-form-urlencoded"
                                     }
                                 )
                                 json.dump(r.json(), open(f'results/photos-{sts}-{regnum}.json', 'w', encoding='utf-8'),
