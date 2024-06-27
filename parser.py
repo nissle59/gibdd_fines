@@ -9,6 +9,7 @@ from itertools import cycle
 import requests
 
 import config
+import images
 import sql_adapter
 from anticaptcha import Anticaptcha
 
@@ -149,6 +150,10 @@ class Fines:
                                         "Content-Type": "application/x-www-form-urlencoded"
                                     }
                                 )
+                                photos = r.json()['photos']
+                                for photo in photos:
+                                    pic_number = photo['type'] + 2
+                                    images.base64_to_image(photo['base64Value'], post, pic_number)
                                 json.dump(r.json(), open(f'results/photos-{sts}-{regnum}.json', 'w', encoding='utf-8'),
                                           ensure_ascii=False, indent=2)
                         except Exception as e:
