@@ -151,8 +151,8 @@ class Fines:
                                 )
                                 json.dump(r.json(), open(f'results/photos-{sts}-{regnum}.json', 'w', encoding='utf-8'),
                                           ensure_ascii=False, indent=2)
-                        except:
-                            pass
+                        except Exception as e:
+                            config.logger.info(e)
                         #################################
                     except Exception as e:
                         r['picsToken'] = None
