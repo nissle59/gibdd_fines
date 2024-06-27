@@ -143,7 +143,7 @@ class Fines:
                                     'divid': divid,
                                     'cafapPicsToken': r['picsToken']
                                 }
-                                r = self.session.post(
+                                int_r = self.session.post(
                                     url='https://xn--b1afk4ade.xn--90adear.xn--p1ai/proxy/check/fines/pics',
                                     verify=False,
                                     data=post_data,
@@ -151,11 +151,12 @@ class Fines:
                                         "Content-Type": "application/x-www-form-urlencoded"
                                     }
                                 )
-                                photos = r.json()['photos']
+                                photos = int_r.json()['photos']
                                 for photo in photos:
                                     pic_number = photo['type'] + 2
                                     images.base64_to_image(photo['base64Value'], post, pic_number)
-                                json.dump(r.json(), open(f'results/photos-{sts}-{regnum}.json', 'w', encoding='utf-8'),
+                                json.dump(int_r.json(),
+                                          open(f'results/photos-{sts}-{regnum}.json', 'w', encoding='utf-8'),
                                           ensure_ascii=False, indent=2)
                         except Exception as e:
                             config.logger.info(e)
