@@ -3,6 +3,7 @@ import datetime
 import json
 import threading
 import time
+import traceback
 import warnings
 from itertools import cycle
 
@@ -165,6 +166,7 @@ class Fines:
 
             except Exception as e:
                 config.logger.debug(e)
+                traceback.print_exc()
                 config.logger.info(f'[{self.captcha_iter} - {c_code}] {sts} - NO FINES')
                 try:
                     if r.status_code('code', 200) in ['201', 201]:
