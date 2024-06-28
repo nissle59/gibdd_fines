@@ -143,15 +143,21 @@ class Fines:
                                     'divid': divid,
                                     'cafapPicsToken': r['picsToken']
                                 }
-                                int_r = self.session.post(
-                                    url='https://xn--b1afk4ade.xn--90adear.xn--p1ai/proxy/check/fines/pics',
-                                    verify=False,
-                                    data=post_data,
-                                    headers={
-                                        "Content-Type": "application/x-www-form-urlencoded"
-                                    }
-                                )
-                                photos = int_r.json()['photos']
+                                for iii in range(3):
+                                    try:
+                                        int_r = self.session.post(
+                                            url='https://xn--b1afk4ade.xn--90adear.xn--p1ai/proxy/check/fines/pics',
+                                            verify=False,
+                                            data=post_data,
+                                            headers={
+                                                "Content-Type": "application/x-www-form-urlencoded"
+                                            }
+                                        )
+                                        photos = int_r.json()['photos']
+                                        break
+                                    except Exception as e:
+                                        int_r = None
+                                        self.session.proxies = next(config.r_proxies)
                                 imgs_arr = []
                                 for photo in photos:
                                     pic_number = photo['type'] + 2

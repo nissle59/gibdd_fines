@@ -59,7 +59,7 @@ def test():
                     tc.proxy = next(config.r_proxies)
                 c += 1
             except Exception as e:
-                config.error(e)
+                config.logger.info(e)
                 if tc.proxy:
                     tc.proxy = next(config.r_proxies)
                 c += 1
