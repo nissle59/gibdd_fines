@@ -23,6 +23,10 @@ def base64_to_image(base64_string: str, uin: str, pic_number: int):
     p = Path(config.img_base_path / uin)
     p.mkdir(parents=True, exist_ok=True)
     image.save(Path(p / output_filename))
+    try:
+        del image
+    except:
+        pass
 
     config.logger.info(f'-- {uin} Изображение {str(pic_number)} сохранено как {output_filename}')
 
