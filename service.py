@@ -15,7 +15,7 @@ LOGGER = logging.getLogger(__name__)
 async def multithreaded_find_dcs(use_proxy=True):
     LOGGER = logging.getLogger(__name__ + ".multithreaded_find_dcs")
     cars = await sql_adapter.get_cars_to_update()
-    LOGGER.info("%s: " + len(cars), config.name)
+    LOGGER.info("%s: " + str(len(cars)), config.name)
     parser.mulithreaded_processor(cars)
 
 
@@ -23,7 +23,7 @@ def update_proxies_from_file():
     LOGGER = logging.getLogger(__name__ + ".update_proxies_from_file")
     with open('proxies.json', 'r', encoding='utf-8') as f:
         config.proxies = json.loads(f.read())
-    LOGGER.info("%s: " + len(config.proxies), config.name)
+    LOGGER.info("%s: " + str(len(config.proxies)), config.name)
     config.r_proxies = cycle(config.proxies)
     for i in range(random.randint(0, len(config.proxies))):
         next(config.r_proxies)
@@ -56,7 +56,7 @@ def test():
                 if tc.proxy:
                     LOGGER.debug("%s: " + f'Trying proxy {tc.proxy["http"]}', config.name)
                 car = tc.get_fines(reg, sts)
-                LOGGER.debug("%s: " + json.dumps(car, ensure_ascii=False, indent=2, default=str, sort_keys=True),
+                LOGGER.debug("%s: " + str(json.dumps(car, ensure_ascii=False, indent=2, default=str, sort_keys=True)),
                              config.name)
                 break
             except StopIteration:
@@ -65,7 +65,7 @@ def test():
                     tc.proxy = next(config.r_proxies)
                 c += 1
             except Exception as e:
-                LOGGER.info("%s: " + e, config.name)
+                LOGGER.info("%s: " + str(e), config.name)
                 if tc.proxy:
                     tc.proxy = next(config.r_proxies)
                 c += 1
@@ -122,7 +122,7 @@ async def update_proxies():
                        'https': f'http://{proxy["username"]}:{proxy["password"]}@{proxy["ip"]}:{str(proxy["port"])}'}
                       for proxy in
                       await sql_adapter.get_active_proxies('HTTPS')]
-    LOGGER.info("%s: " + len(config.proxies), config.name)
+    LOGGER.info("%s: " + str(len(config.proxies)), config.name)
     config.r_proxies = cycle(config.proxies)
     for i in range(random.randint(0, len(config.proxies))):
         next(config.r_proxies)
@@ -144,7 +144,7 @@ async def find_fines(search: str | list):
         for item in search:
             cars.extend(await sql_adapter.find_car(item))
     if len(cars) > 0:
-        LOGGER.info("%s: " + cars, config.name)
+        LOGGER.info("%s: " + str(cars), config.name)
         parser.mulithreaded_processor(cars)
         # parser.process_thread([cars])
 

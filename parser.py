@@ -111,8 +111,8 @@ class Fines:
                 r = self.session.post(self.dc_check_url, data=params, verify=False)
             # with open(f'results/{sts}-{regnum}.json', 'w', encoding='utf-8') as f:
             #     f.write(r.text)
-            LOGGER.debug("%s: " + r.status_code, config.name)
-            LOGGER.debug("%s: " + r.text, config.name)
+            LOGGER.debug("%s: " + str(r.status_code), config.name)
+            LOGGER.debug("%s: " + str(r.text), config.name)
             try:
                 res = r.json()
                 msg = res['message']
@@ -125,7 +125,7 @@ class Fines:
                         LOGGER.info("%s: " + f'Need to set invalid pair [{sts} - {regnum}]', config.name)
                         asyncio.run(sql_adapter.set_pair_invalid(sts, regnum))
                     except Exception as e:
-                        LOGGER.error("%s: " + e, config.name, exc_info=True)
+                        LOGGER.error("%s: " + str(e), config.name, exc_info=True)
                 #res_status = res.get('RequestResult', {'status': 'ERROR'}).get('status', 'ERROR')
                 if len(res['data']) == 0:
                     result = []
@@ -175,7 +175,7 @@ class Fines:
                                           open(f'results/photos-{sts}-{regnum}.json', 'w', encoding='utf-8'),
                                           ensure_ascii=False, indent=2)
                         except Exception as e:
-                            LOGGER.debug("%s: " + e, config.name)
+                            LOGGER.debug("%s: " + str(e), config.name)
                         #################################
                     except Exception as e:
                         r['picsToken'] = None
@@ -183,7 +183,7 @@ class Fines:
                                 config.name)
 
             except Exception as e:
-                LOGGER.debug("%s: " + e, config.name)
+                LOGGER.debug("%s: " + str(e), config.name)
                 # traceback.print_exc()
                 LOGGER.info("%s: " + f'[{self.captcha_iter} - {c_code}] {sts} - NO FINES', config.name)
                 try:
@@ -197,7 +197,7 @@ class Fines:
                             f.write(str(r.status_code) + '\n' + r.text + '\n\n' + str(ex))
                     result = None
                 except Exception as e:
-                    LOGGER.debug("%s: " + e, config.name)
+                    LOGGER.debug("%s: " + str(e), config.name)
                     # config.error(f'{sts} - Failed')
                     config.failed_list.append(sts)
                     result = None
@@ -225,7 +225,7 @@ def process_thread(cars: list):
                 try:
                     asyncio.run(sql_adapter.touch_pair(sts, reg))
                 except Exception as e:
-                    LOGGER.critical("%s: " + e, config.name, exc_info=True)
+                    LOGGER.critical("%s: " + str(e), config.name, exc_info=True)
                 car = v.get_fines(reg, sts)
                 #print(json.dumps(car, ensure_ascii=False, indent=2))
                 if car:
@@ -233,15 +233,15 @@ def process_thread(cars: list):
                         try:
                             asyncio.run(sql_adapter.insert_divisions(car))
                         except Exception as e:
-                            LOGGER.critical("%s: " + e, config.name, exc_info=True)
+                            LOGGER.critical("%s: " + str(e), config.name, exc_info=True)
                         try:
                             asyncio.run(sql_adapter.insert_laws(car))
                         except Exception as e:
-                            LOGGER.critical("%s: " + e, config.name, exc_info=True)
+                            LOGGER.critical("%s: " + str(e), config.name, exc_info=True)
                         try:
                             asyncio.run(sql_adapter.insert_fines(car))
                         except Exception as e:
-                            LOGGER.critical("%s: " + e, config.name, exc_info=True)
+                            LOGGER.critical("%s: " + str(e), config.name, exc_info=True)
                 break
             except StopIteration:
                 if v.proxy:
@@ -253,9 +253,9 @@ def process_thread(cars: list):
                     config.r_proxies = cycle(config.proxies)
                     v.proxy = next(config.r_proxies)
                 c += 1
-                LOGGER.error("%s: " + prx_e, config.name, exc_info=True)
+                LOGGER.error("%s: " + str(prx_e), config.name, exc_info=True)
             except Exception as e:
-                LOGGER.critical("%s: " + e, config.name, exc_info=True)
+                LOGGER.critical("%s: " + str(e), config.name, exc_info=True)
                 if v.proxy:
                     v.proxy = next(config.r_proxies)
                 c += 1
@@ -317,11 +317,11 @@ def mulithreaded_processor(vins: list):
             dt_str = f'{len_unis} UINs, {length_of_vins_list} records: {int(dt_h)} hours {int(dt_m)} minutes {round(dt_s)} seconds passed'
         else:
             dt_str = f'{len_unis} UINs, {length_of_vins_list} records: {round(dt_diff)} seconds passed'
-        LOGGER.info("%s: " + dt_str, config.name)
+        LOGGER.info("%s: " + str(dt_str), config.name)
         config.failed_list = list(set(config.failed_list))
         if len(config.failed_list) > 0:
             s = f'Failed sts: {len(config.failed_list)}\nCodes: {", ".join(config.failed_list)}'
-            LOGGER.error("%s: " + s, config.name, exc_info=True)
+            LOGGER.error("%s: " + str(s), config.name, exc_info=True)
     else:
         LOGGER.info("%s: " + f'VINs list is empty. All VINs are up to date.', config.name)
 

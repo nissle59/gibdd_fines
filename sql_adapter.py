@@ -392,5 +392,5 @@ async def find_car(search):
             return []
         # config.logger.info(data)
         data = [{'reg': item['regNumber'], 'sts': item['stsNumber']} for item in list_detector_to_list(data)]
-        LOGGER.info("%s: " + data, config.name)
+        LOGGER.info("%s: " + str(data), config.name)
         return data
