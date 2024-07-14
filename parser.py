@@ -252,8 +252,12 @@ def process_thread(cars: list):
                 if v.proxy:
                     config.r_proxies = cycle(config.proxies)
                     v.proxy = next(config.r_proxies)
+                if c < config.tries:
+                    LOGGER.debug("%s: " + str(prx_e), config.name)
+                else:
+                    LOGGER.critical("%s: " + f"Proxy tries ({config.tries}) are exhausted; " + str(prx_e), config.name,
+                                    exc_info=True)
                 c += 1
-                LOGGER.error("%s: " + str(prx_e), config.name, exc_info=True)
             except Exception as e:
                 LOGGER.critical("%s: " + str(e), config.name, exc_info=True)
                 if v.proxy:
