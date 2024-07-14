@@ -1,10 +1,11 @@
 import time
-
+import logging
 import requests
 
 
 class Anticaptcha():
     def __init__(self, url ='http://90.188.15.14:9085', token = 'e9e783d3e52abd6101fc807ab1109400'):
+        LOGGER = logging.getLogger(__name__ + ".Anticaptcha--init")
         self.url = url
         self.uin = self.url + '/in.php'
         self.ures = self.url + '/res.php'
@@ -17,6 +18,7 @@ class Anticaptcha():
         })
 
     def _init_request(self, b64image:str):
+        LOGGER = logging.getLogger(__name__ + ".Anticaptcha--_init_request")
         data = {
             'method':'base64',
             'body': b64image,
@@ -38,6 +40,7 @@ class Anticaptcha():
             return None
 
     def _resolve_request(self):
+        LOGGER = logging.getLogger(__name__ + ".Anticaptcha--_resolve_request")
         #config.logger.info(self.id)
         if self.id:
             data = {
@@ -62,6 +65,7 @@ class Anticaptcha():
                 return None
 
     def resolve_captcha(self, captchaImage:str):
+        LOGGER = logging.getLogger(__name__ + ".Anticaptcha--resolve_captcha")
         r = self._init_request(captchaImage)
         #config.logger.info(r)
         if r:

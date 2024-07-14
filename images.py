@@ -3,9 +3,11 @@ from io import BytesIO
 from PIL import Image
 from pathlib import Path
 import config
+import logging
 
 
 def base64_to_image(base64_string: str, uin: str, pic_number: int):
+    LOGGER = logging.getLogger(__name__ + ".base64_to_image")
     # Декодируем base64 строку в байты
     image_data = base64.b64decode(base64_string)
 
@@ -28,6 +30,6 @@ def base64_to_image(base64_string: str, uin: str, pic_number: int):
     except:
         pass
 
-    config.logger.info(f'-- {uin} Изображение {str(pic_number)} сохранено как {output_filename}')
+    LOGGER.info(f'-- {uin} Изображение {str(pic_number)} сохранено как {output_filename}')
 
     return (uin, output_filename)

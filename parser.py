@@ -6,7 +6,7 @@ import time
 import traceback
 import warnings
 from itertools import cycle
-
+import logging
 import requests
 
 import config
@@ -17,6 +17,7 @@ from anticaptcha import Anticaptcha
 warnings.filterwarnings("ignore")
 
 def get_proxies_from_url(url=f"http://api-external.tm.8525.ru/proxies?token=5jossnicxhn75lht7aimal7r2ocvg6o7"):
+    LOGGER = logging.getLogger(__name__ + ".get_proxies_from_url")
     r = requests.get(url, verify=False)
     if r.status_code == 200:
         try:
@@ -29,6 +30,7 @@ def get_proxies_from_url(url=f"http://api-external.tm.8525.ru/proxies?token=5jos
 
 
 def get_vins_from_url(url='http://api-external.tm.8525.ru/vins?token=5jossnicxhn75lht7aimal7r2ocvg6o7'):
+    LOGGER = logging.getLogger(__name__ + ".get_vins_from_url")
     r = requests.get(url, verify=False)
     if r.status_code == 200:
         try:
@@ -42,6 +44,7 @@ def get_vins_from_url(url='http://api-external.tm.8525.ru/vins?token=5jossnicxhn
 
 class Fines:
     def __init__(self, proxy=None):
+        LOGGER = logging.getLogger(__name__ + ".Fines--init")
         self.results = []
         self.captch_req_url = 'https://check.gibdd.ru/captcha'
         self.dc_check_url = 'https://xn--b1afk4ade.xn--90adear.xn--p1ai/proxy/check/fines'
@@ -54,6 +57,7 @@ class Fines:
         self.captcha = None
 
     def get_captcha(self):
+        LOGGER = logging.getLogger(__name__ + ".Fines--get_captcha")
         if self.proxy:
             try:
                 r = self.session.get(self.captch_req_url, verify=False, proxies=self.proxy)
@@ -75,9 +79,11 @@ class Fines:
         return result
 
     def resolve_captcha(self, captcha_img_b64):
+        LOGGER = logging.getLogger(__name__ + ".Fines--resolve_captcha")
         return self.solver.resolve_captcha(captcha_img_b64)
 
     def get_fines(self, regnum, sts):
+        LOGGER = logging.getLogger(__name__ + ".Fines--get_fines")
         if not self.captcha:
             self.captcha = self.get_captcha()
         if self.captcha:
@@ -105,8 +111,8 @@ class Fines:
                 r = self.session.post(self.dc_check_url, data=params, verify=False)
             # with open(f'results/{sts}-{regnum}.json', 'w', encoding='utf-8') as f:
             #     f.write(r.text)
-            config.logger.debug(r.status_code)
-            config.logger.debug(r.text)
+            LOGGER.debug(r.status_code)
+            LOGGER.debug(r.text)
             try:
                 res = r.json()
                 msg = res['message']
@@ -116,14 +122,14 @@ class Fines:
                     return self.get_fines(regnum, sts)
                 if res.get('status', 200) == 404:
                     try:
-                        config.logger.info(f'Need to set invalid pair [{sts} - {regnum}]')
+                        LOGGER.info(f'Need to set invalid pair [{sts} - {regnum}]')
                         asyncio.run(sql_adapter.set_pair_invalid(sts, regnum))
                     except Exception as e:
-                        config.error(e)
+                        LOGGER.error(e)
                 #res_status = res.get('RequestResult', {'status': 'ERROR'}).get('status', 'ERROR')
                 if len(res['data']) == 0:
                     result = []
-                    config.logger.info(f'[{self.captcha_iter} - {c_code}] {sts} - NO FINES ({msg})')
+                    LOGGER.info(f'[{self.captcha_iter} - {c_code}] {sts} - NO FINES ({msg})')
                     asyncio.run(sql_adapter.all_paid(sts))
                     return result
                 result = res
@@ -169,16 +175,16 @@ class Fines:
                                           open(f'results/photos-{sts}-{regnum}.json', 'w', encoding='utf-8'),
                                           ensure_ascii=False, indent=2)
                         except Exception as e:
-                            config.logger.info(e)
+                            LOGGER.info(e)
                         #################################
                     except Exception as e:
                         r['picsToken'] = None
-                    config.logger.info(f'[{self.captcha_iter} - {c_code}] {sts} - {str(r["SupplierBillID"])}')
+                    LOGGER.info(f'[{self.captcha_iter} - {c_code}] {sts} - {str(r["SupplierBillID"])}')
 
             except Exception as e:
-                config.logger.debug(e)
+                LOGGER.debug(e)
                 traceback.print_exc()
-                config.logger.info(f'[{self.captcha_iter} - {c_code}] {sts} - NO FINES')
+                LOGGER.info(f'[{self.captcha_iter} - {c_code}] {sts} - NO FINES')
                 try:
                     if r.status_code('code', 200) in ['201', 201]:
                         print(r.content)
@@ -190,7 +196,7 @@ class Fines:
                             f.write(str(r.status_code) + '\n' + r.text + '\n\n' + str(ex))
                     result = None
                 except Exception as e:
-                    config.logger.info(e)
+                    LOGGER.info(e)
                     # config.error(f'{sts} - Failed')
                     config.failed_list.append(sts)
                     result = None
@@ -198,6 +204,7 @@ class Fines:
 
 
 def process_thread(cars: list):
+    LOGGER = logging.getLogger(__name__ + ".process_thread")
     try:
         prx = next(config.r_proxies)
     except StopIteration:
@@ -213,11 +220,11 @@ def process_thread(cars: list):
             try:
                 force = False
                 if v.proxy:
-                    config.logger.debug(f'Trying proxy {v.proxy["http"]}')
+                    LOGGER.debug(f'Trying proxy {v.proxy["http"]}')
                 try:
                     asyncio.run(sql_adapter.touch_pair(sts, reg))
                 except Exception as e:
-                    config.error(e)
+                    LOGGER.error(e)
                 car = v.get_fines(reg, sts)
                 #print(json.dumps(car, ensure_ascii=False, indent=2))
                 if car:
@@ -225,15 +232,15 @@ def process_thread(cars: list):
                         try:
                             asyncio.run(sql_adapter.insert_divisions(car))
                         except Exception as e:
-                            config.error(e)
+                            LOGGER.error(e)
                         try:
                             asyncio.run(sql_adapter.insert_laws(car))
                         except Exception as e:
-                            config.error(e)
+                            LOGGER.error(e)
                         try:
                             asyncio.run(sql_adapter.insert_fines(car))
                         except Exception as e:
-                            config.error(e)
+                            LOGGER.error(e)
                 break
             except StopIteration:
                 if v.proxy:
@@ -241,13 +248,14 @@ def process_thread(cars: list):
                     v.proxy = next(config.r_proxies)
                 c += 1
             except Exception as e:
-                config.error(e)
+                LOGGER.error(e)
                 if v.proxy:
                     v.proxy = next(config.r_proxies)
                 c += 1
 
 
 def mulithreaded_processor(vins: list):
+    LOGGER = logging.getLogger(__name__ + ".multithreaded_processor")
     config.failed_list = []
     start_dt = datetime.datetime.now()
     length_of_vins_list = len(vins)
@@ -261,7 +269,7 @@ def mulithreaded_processor(vins: list):
         vins_lists = []
         if vins_in_thread > 0:
             for i in range(0, threads_count + 1):
-                config.logger.info(f'{i + 1} of {config.threads}')
+                LOGGER.info(f'{i + 1} of {config.threads}')
                 slice_low = vins_in_thread * i
                 slice_high = slice_low + vins_in_thread
                 if slice_high > len(vins):
@@ -273,19 +281,19 @@ def mulithreaded_processor(vins: list):
                     threading.Thread(target=process_thread, args=(vins_lists[i],), daemon=True))
             for thread in array_of_threads:
                 thread.start()
-                config.logger.info(
+                LOGGER.info(
                     f'Started thread #{array_of_threads.index(thread) + 1} of {len(array_of_threads)} with {len(vins_lists[array_of_threads.index(thread)])} cars')
 
             for thread in array_of_threads:
                 thread.join()
-                config.logger.info(
+                LOGGER.info(
                     f'Joined thread #{array_of_threads.index(thread) + 1} of {len(array_of_threads)} with {len(vins_lists[array_of_threads.index(thread)])} cars')
         else:
-            config.logger.info(f'Started parsing of {length_of_vins_list} vin in 1 thread...')
+            LOGGER.info(f'Started parsing of {length_of_vins_list} vin in 1 thread...')
             t1 = threading.Thread(target=process_thread, args=(vins,), daemon=True)
             t1.start()
             t1.join()
-            config.logger.info(
+            LOGGER.info(
                 f'Joined thread #1 of 1 with {len(vins)} cars')
         stop_dt = datetime.datetime.now()
         dt_diff = (stop_dt - start_dt).total_seconds()
@@ -300,13 +308,13 @@ def mulithreaded_processor(vins: list):
             dt_str = f'{len_unis} UINs, {length_of_vins_list} records: {int(dt_h)} hours {int(dt_m)} minutes {round(dt_s)} seconds passed'
         else:
             dt_str = f'{len_unis} UINs, {length_of_vins_list} records: {round(dt_diff)} seconds passed'
-        config.logger.info(dt_str)
+        LOGGER.info(dt_str)
         config.failed_list = list(set(config.failed_list))
         if len(config.failed_list) > 0:
             s = f'Failed sts: {len(config.failed_list)}\nCodes: {", ".join(config.failed_list)}'
-            config.error(s)
+            LOGGER.error(s)
     else:
-        config.logger.info(f'VINs list is empty. All VINs are up to date.')
+        LOGGER.info(f'VINs list is empty. All VINs are up to date.')
 
 
 if __name__ == '__main__':

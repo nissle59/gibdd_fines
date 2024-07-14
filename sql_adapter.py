@@ -5,17 +5,21 @@ import random
 import re
 from itertools import cycle
 from pathlib import Path
-
+import logging
 import config
 from database import AsyncDatabase
 
+LOGGER = logging.getLogger(__name__)
+
 
 def del_tz(dt: datetime.datetime):
+    LOGGER = logging.getLogger(__name__ + ".del_tz")
     dt = dt.replace(tzinfo=None)
     return dt
 
 
 def convert_to_ts(s: str, short=False):
+    LOGGER = logging.getLogger(__name__ + ".convert_to_ts")
     if s:
         if short:
             dt = datetime.datetime.strptime(s, '%Y-%m-%d')
@@ -33,10 +37,12 @@ under_pat = re.compile(r'_([a-z])')
 
 
 def camel_to_underscore(name):
+    LOGGER = logging.getLogger(__name__ + ".camel_to_underscore")
     return camel_pat.sub(lambda x: '_' + x.group(1).lower(), name)
 
 
 def underscore_to_camel(name):
+    LOGGER = logging.getLogger(__name__ + ".underscore_to_camel")
     return under_pat.sub(lambda x: x.group(1).upper(), name)
 
 
@@ -44,6 +50,7 @@ conf = config.DATABASE
 
 
 def list_detector(input_data):
+    LOGGER = logging.getLogger(__name__ + ".list_detector")
     new_data = {}
     if isinstance(input_data, list):
         try:
@@ -58,6 +65,7 @@ def list_detector(input_data):
 
 
 def list_detector_to_list(input_data):
+    LOGGER = logging.getLogger(__name__ + ".list_detector_to_list")
     if isinstance(input_data, list):
         new_data = []
         # data = [dict(record) for record in input_data]
@@ -76,6 +84,7 @@ def list_detector_to_list(input_data):
 
 
 async def get_setting(setting_name: str):
+    LOGGER = logging.getLogger(__name__ + ".get_setting")
     query = f"SELECT value FROM dc_base.settings WHERE setting_name = '{setting_name}'"
 
     async with AsyncDatabase(**conf) as db:
@@ -90,6 +99,7 @@ async def get_setting(setting_name: str):
 
 
 async def get_active_proxies(proxy_type: str):
+    LOGGER = logging.getLogger(__name__ + ".get_active_proxies")
     if proxy_type == "HTTPS":
         view_name = 'dc_base.https_active_proxies'
     elif proxy_type == 'SOCKS5':
@@ -110,6 +120,7 @@ async def get_active_proxies(proxy_type: str):
 
 
 async def get_cars_to_update():
+    LOGGER = logging.getLogger(__name__ + ".get_cars_to_update")
     # touched_at = config.touched_at
     query = "SELECT * FROM fines_base.cars_to_update"
     # query = f"select vin, created_at from dcs
@@ -182,6 +193,7 @@ def get_cars_from_file():
 
 
 async def all_paid(sts):
+    LOGGER = logging.getLogger(__name__ + ".all_paid")
     async with AsyncDatabase(**conf) as db:
         done_q = f"update fines_base.fines set status = 'done' where sts_number = '{sts}'"
         data = await db.fetch(done_q)
@@ -192,12 +204,14 @@ async def all_paid(sts):
 
 
 async def insert_photos(photos_list_of_t):
+    LOGGER = logging.getLogger(__name__ + ".insert_photos")
     async with AsyncDatabase(**conf) as db:
         q = "INSERT INTO fines_base.photos(uin, path) VALUES ($1, $2) ON CONFLICT(uin, path) DO NOTHING"
         await db.executemany(q, photos_list_of_t)
 
 
 async def insert_fines(fines_list):
+    LOGGER = logging.getLogger(__name__ + ".insert_fines")
     async with AsyncDatabase(**conf) as db:
         with open('sql/insert_fine.sql', 'r', encoding='utf-8') as f:
             query = f.read()
@@ -272,6 +286,7 @@ async def insert_fines(fines_list):
 
 
 async def insert_divisions(fines_list):
+    LOGGER = logging.getLogger(__name__ + ".insert_divisions")
     with open('sql/insert_division.sql', 'r', encoding='utf-8') as f:
         query = f.read()
     fines_list_arr = []
@@ -292,6 +307,7 @@ async def insert_divisions(fines_list):
 
 
 async def insert_laws(fines_list):
+    LOGGER = logging.getLogger(__name__ + ".insert_laws")
     with open('sql/insert_law.sql', 'r', encoding='utf-8') as f:
         query = f.read()
     fines_list_arr = []
@@ -318,6 +334,7 @@ async def insert_laws(fines_list):
 
 
 async def set_pair_invalid(sts, reg):
+    LOGGER = logging.getLogger(__name__ + ".set_pair_invalid")
     query = f"""
         UPDATE fines_base.sts_regnumbers SET 
             is_valid = False, 
@@ -333,6 +350,7 @@ async def set_pair_invalid(sts, reg):
 
 
 async def touch_pair(sts, reg):
+    LOGGER = logging.getLogger(__name__ + ".touch_pair")
     query = f"""
             UPDATE fines_base.sts_regnumbers SET 
                 touched_at = CURRENT_TIMESTAMP
@@ -348,6 +366,7 @@ async def touch_pair(sts, reg):
 
 
 async def update_pair(sts, reg):
+    LOGGER = logging.getLogger(__name__ + ".update_pair")
     query = f"""
             UPDATE fines_base.sts_regnumbers SET 
                 updated_at = CURRENT_TIMESTAMP,
@@ -363,6 +382,7 @@ async def update_pair(sts, reg):
 
 
 async def find_car(search):
+    LOGGER = logging.getLogger(__name__ + ".find_car")
     query = f"SELECT * FROM fines_base.sts_regnumbers WHERE sts_number = '{search}' OR reg_number = '{search}'"
 
     async with AsyncDatabase(**conf) as db:
@@ -372,5 +392,5 @@ async def find_car(search):
             return []
         # config.logger.info(data)
         data = [{'reg': item['regNumber'], 'sts': item['stsNumber']} for item in list_detector_to_list(data)]
-        config.logger.info(data)
+        LOGGER.info(data)
         return data
