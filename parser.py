@@ -125,7 +125,7 @@ class Fines:
                         LOGGER.info(f'Need to set invalid pair [{sts} - {regnum}]')
                         asyncio.run(sql_adapter.set_pair_invalid(sts, regnum))
                     except Exception as e:
-                        LOGGER.error(e)
+                        LOGGER.error(e, exc_info=True)
                 #res_status = res.get('RequestResult', {'status': 'ERROR'}).get('status', 'ERROR')
                 if len(res['data']) == 0:
                     result = []
@@ -224,7 +224,7 @@ def process_thread(cars: list):
                 try:
                     asyncio.run(sql_adapter.touch_pair(sts, reg))
                 except Exception as e:
-                    LOGGER.error(e)
+                    LOGGER.error(e, exc_info=True)
                 car = v.get_fines(reg, sts)
                 #print(json.dumps(car, ensure_ascii=False, indent=2))
                 if car:
@@ -232,15 +232,15 @@ def process_thread(cars: list):
                         try:
                             asyncio.run(sql_adapter.insert_divisions(car))
                         except Exception as e:
-                            LOGGER.error(e)
+                            LOGGER.error(e, exc_info=True)
                         try:
                             asyncio.run(sql_adapter.insert_laws(car))
                         except Exception as e:
-                            LOGGER.error(e)
+                            LOGGER.error(e, exc_info=True)
                         try:
                             asyncio.run(sql_adapter.insert_fines(car))
                         except Exception as e:
-                            LOGGER.error(e)
+                            LOGGER.error(e, exc_info=True)
                 break
             except StopIteration:
                 if v.proxy:
@@ -248,7 +248,7 @@ def process_thread(cars: list):
                     v.proxy = next(config.r_proxies)
                 c += 1
             except Exception as e:
-                LOGGER.error(e)
+                LOGGER.error(e, exc_info=True)
                 if v.proxy:
                     v.proxy = next(config.r_proxies)
                 c += 1
@@ -312,7 +312,7 @@ def mulithreaded_processor(vins: list):
         config.failed_list = list(set(config.failed_list))
         if len(config.failed_list) > 0:
             s = f'Failed sts: {len(config.failed_list)}\nCodes: {", ".join(config.failed_list)}'
-            LOGGER.error(s)
+            LOGGER.error(s, exc_info=True)
     else:
         LOGGER.info(f'VINs list is empty. All VINs are up to date.')
 
