@@ -111,8 +111,8 @@ class Fines:
                 r = self.session.post(self.dc_check_url, data=params, verify=False)
             # with open(f'results/{sts}-{regnum}.json', 'w', encoding='utf-8') as f:
             #     f.write(r.text)
-            LOGGER.debug(r.status_code)
-            LOGGER.debug(r.text)
+            LOGGER.debug(r.status_code, config.name)
+            LOGGER.debug(r.text, config.name)
             try:
                 res = r.json()
                 msg = res['message']
@@ -122,14 +122,14 @@ class Fines:
                     return self.get_fines(regnum, sts)
                 if res.get('status', 200) == 404:
                     try:
-                        LOGGER.info(f'Need to set invalid pair [{sts} - {regnum}]')
+                        LOGGER.info(f'Need to set invalid pair [{sts} - {regnum}]', config.name)
                         asyncio.run(sql_adapter.set_pair_invalid(sts, regnum))
                     except Exception as e:
-                        LOGGER.error(e, exc_info=True)
+                        LOGGER.error(e, config.name, exc_info=True)
                 #res_status = res.get('RequestResult', {'status': 'ERROR'}).get('status', 'ERROR')
                 if len(res['data']) == 0:
                     result = []
-                    LOGGER.info(f'[{self.captcha_iter} - {c_code}] {sts} - NO FINES ({msg})')
+                    LOGGER.info(f'[{self.captcha_iter} - {c_code}] {sts} - NO FINES ({msg})', config.name)
                     asyncio.run(sql_adapter.all_paid(sts))
                     return result
                 result = res
@@ -175,16 +175,16 @@ class Fines:
                                           open(f'results/photos-{sts}-{regnum}.json', 'w', encoding='utf-8'),
                                           ensure_ascii=False, indent=2)
                         except Exception as e:
-                            LOGGER.debug(e)
+                            LOGGER.debug(e, config.name)
                         #################################
                     except Exception as e:
                         r['picsToken'] = None
-                    LOGGER.info(f'[{self.captcha_iter} - {c_code}] {sts} - {str(r["SupplierBillID"])}')
+                    LOGGER.info(f'[{self.captcha_iter} - {c_code}] {sts} - {str(r["SupplierBillID"])}', config.name)
 
             except Exception as e:
-                LOGGER.debug(e)
+                LOGGER.debug(e, config.name)
                 # traceback.print_exc()
-                LOGGER.info(f'[{self.captcha_iter} - {c_code}] {sts} - NO FINES')
+                LOGGER.info(f'[{self.captcha_iter} - {c_code}] {sts} - NO FINES', config.name)
                 try:
                     if r.status_code('code', 200) in ['201', 201]:
                         print(r.content)
@@ -196,7 +196,7 @@ class Fines:
                             f.write(str(r.status_code) + '\n' + r.text + '\n\n' + str(ex))
                     result = None
                 except Exception as e:
-                    LOGGER.debug(e)
+                    LOGGER.debug(e, config.name)
                     # config.error(f'{sts} - Failed')
                     config.failed_list.append(sts)
                     result = None
@@ -220,11 +220,11 @@ def process_thread(cars: list):
             try:
                 force = False
                 if v.proxy:
-                    LOGGER.debug(f'Trying proxy {v.proxy["http"]}')
+                    LOGGER.debug(f'Trying proxy {v.proxy["http"]}', config.name)
                 try:
                     asyncio.run(sql_adapter.touch_pair(sts, reg))
                 except Exception as e:
-                    LOGGER.critical(e, exc_info=True)
+                    LOGGER.critical(e, config.name, exc_info=True)
                 car = v.get_fines(reg, sts)
                 #print(json.dumps(car, ensure_ascii=False, indent=2))
                 if car:
@@ -232,15 +232,15 @@ def process_thread(cars: list):
                         try:
                             asyncio.run(sql_adapter.insert_divisions(car))
                         except Exception as e:
-                            LOGGER.critical(e, exc_info=True)
+                            LOGGER.critical(e, config.name, exc_info=True)
                         try:
                             asyncio.run(sql_adapter.insert_laws(car))
                         except Exception as e:
-                            LOGGER.critical(e, exc_info=True)
+                            LOGGER.critical(e, config.name, exc_info=True)
                         try:
                             asyncio.run(sql_adapter.insert_fines(car))
                         except Exception as e:
-                            LOGGER.critical(e, exc_info=True)
+                            LOGGER.critical(e, config.name, exc_info=True)
                 break
             except StopIteration:
                 if v.proxy:
@@ -252,9 +252,9 @@ def process_thread(cars: list):
                     config.r_proxies = cycle(config.proxies)
                     v.proxy = next(config.r_proxies)
                 c += 1
-                LOGGER.error(prx_e, exc_info=True)
+                LOGGER.error(prx_e, config.name, exc_info=True)
             except Exception as e:
-                LOGGER.critical(e, exc_info=True)
+                LOGGER.critical(e, config.name, exc_info=True)
                 if v.proxy:
                     v.proxy = next(config.r_proxies)
                 c += 1
@@ -275,7 +275,7 @@ def mulithreaded_processor(vins: list):
         vins_lists = []
         if vins_in_thread > 0:
             for i in range(0, threads_count + 1):
-                LOGGER.info(f'{i + 1} of {config.threads}')
+                LOGGER.info(f'{i + 1} of {config.threads}', config.name)
                 slice_low = vins_in_thread * i
                 slice_high = slice_low + vins_in_thread
                 if slice_high > len(vins):
@@ -288,19 +288,21 @@ def mulithreaded_processor(vins: list):
             for thread in array_of_threads:
                 thread.start()
                 LOGGER.info(
-                    f'Started thread #{array_of_threads.index(thread) + 1} of {len(array_of_threads)} with {len(vins_lists[array_of_threads.index(thread)])} cars')
+                    f'Started thread #{array_of_threads.index(thread) + 1} of {len(array_of_threads)} with {len(vins_lists[array_of_threads.index(thread)])} cars',
+                    config.name)
 
             for thread in array_of_threads:
                 thread.join()
                 LOGGER.info(
-                    f'Joined thread #{array_of_threads.index(thread) + 1} of {len(array_of_threads)} with {len(vins_lists[array_of_threads.index(thread)])} cars')
+                    f'Joined thread #{array_of_threads.index(thread) + 1} of {len(array_of_threads)} with {len(vins_lists[array_of_threads.index(thread)])} cars',
+                    config.name)
         else:
-            LOGGER.info(f'Started parsing of {length_of_vins_list} vin in 1 thread...')
+            LOGGER.info(f'Started parsing of {length_of_vins_list} vin in 1 thread...', config.name)
             t1 = threading.Thread(target=process_thread, args=(vins,), daemon=True)
             t1.start()
             t1.join()
             LOGGER.info(
-                f'Joined thread #1 of 1 with {len(vins)} cars')
+                f'Joined thread #1 of 1 with {len(vins)} cars', config.name)
         stop_dt = datetime.datetime.now()
         dt_diff = (stop_dt - start_dt).total_seconds()
         config.fines_total = list(set(config.fines_total))
@@ -314,13 +316,13 @@ def mulithreaded_processor(vins: list):
             dt_str = f'{len_unis} UINs, {length_of_vins_list} records: {int(dt_h)} hours {int(dt_m)} minutes {round(dt_s)} seconds passed'
         else:
             dt_str = f'{len_unis} UINs, {length_of_vins_list} records: {round(dt_diff)} seconds passed'
-        LOGGER.info(dt_str)
+        LOGGER.info(dt_str, config.name)
         config.failed_list = list(set(config.failed_list))
         if len(config.failed_list) > 0:
             s = f'Failed sts: {len(config.failed_list)}\nCodes: {", ".join(config.failed_list)}'
-            LOGGER.error(s, exc_info=True)
+            LOGGER.error(s, config.name, exc_info=True)
     else:
-        LOGGER.info(f'VINs list is empty. All VINs are up to date.')
+        LOGGER.info(f'VINs list is empty. All VINs are up to date.', config.name)
 
 
 if __name__ == '__main__':

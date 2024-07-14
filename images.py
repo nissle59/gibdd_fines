@@ -30,6 +30,6 @@ def base64_to_image(base64_string: str, uin: str, pic_number: int):
     except:
         pass
 
-    LOGGER.info(f'-- {uin} Изображение {str(pic_number)} сохранено как {output_filename}')
+    LOGGER.info(f'-- {uin} Изображение {str(pic_number)} сохранено как {output_filename}', config.name)
 
     return (uin, output_filename)

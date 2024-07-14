@@ -6,7 +6,13 @@
   <component name="ChangeListManager">
     <list default="true" id="c992a14d-dbe7-4cc8-ab42-bf7187a1669a" name="Changes" comment="Upd">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/config.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database.py" beforeDir="false" afterPath="$PROJECT_DIR$/database.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/images.py" beforeDir="false" afterPath="$PROJECT_DIR$/images.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/parser.py" beforeDir="false" afterPath="$PROJECT_DIR$/parser.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server.py" beforeDir="false" afterPath="$PROJECT_DIR$/server.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/service.py" beforeDir="false" afterPath="$PROJECT_DIR$/service.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sql_adapter.py" beforeDir="false" afterPath="$PROJECT_DIR$/sql_adapter.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,7 +47,7 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/nissl/PycharmProjects/gosuslugiApi&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/nissl/PycharmProjects/rsa_parser&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -56,6 +62,11 @@
     ]
   }
 }</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\nissl\PycharmProjects\gibdd_fines" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration name="service" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="gibdd_fines" />
@@ -128,102 +139,16 @@
       <workItem from="1719420644676" duration="1905000" />
       <workItem from="1719479630012" duration="4983000" />
       <workItem from="1719492644554" duration="242000" />
-    </task>
-    <task id="LOCAL-00022" summary="Upd">
-      <option name="closed" value="true" />
-      <created>1710855475251</created>
-      <option name="number" value="00022" />
-      <option name="presentableId" value="LOCAL-00022" />
-      <option name="project" value="LOCAL" />
-      <updated>1710855475251</updated>
-    </task>
-    <task id="LOCAL-00023" summary="Upd">
-      <option name="closed" value="true" />
-      <created>1710855608635</created>
-      <option name="number" value="00023" />
-      <option name="presentableId" value="LOCAL-00023" />
-      <option name="project" value="LOCAL" />
-      <updated>1710855608635</updated>
-    </task>
-    <task id="LOCAL-00024" summary="Upd">
-      <option name="closed" value="true" />
-      <created>1710855642856</created>
-      <option name="number" value="00024" />
-      <option name="presentableId" value="LOCAL-00024" />
-      <option name="project" value="LOCAL" />
-      <updated>1710855642856</updated>
-    </task>
-    <task id="LOCAL-00025" summary="Upd">
-      <option name="closed" value="true" />
-      <created>1711365246275</created>
-      <option name="number" value="00025" />
-      <option name="presentableId" value="LOCAL-00025" />
-      <option name="project" value="LOCAL" />
-      <updated>1711365246276</updated>
-    </task>
-    <task id="LOCAL-00026" summary="Upd">
-      <option name="closed" value="true" />
-      <created>1711477289708</created>
-      <option name="number" value="00026" />
-      <option name="presentableId" value="LOCAL-00026" />
-      <option name="project" value="LOCAL" />
-      <updated>1711477289708</updated>
-    </task>
-    <task id="LOCAL-00027" summary="Upd">
-      <option name="closed" value="true" />
-      <created>1711527846376</created>
-      <option name="number" value="00027" />
-      <option name="presentableId" value="LOCAL-00027" />
-      <option name="project" value="LOCAL" />
-      <updated>1711527846376</updated>
-    </task>
-    <task id="LOCAL-00028" summary="Upd">
-      <option name="closed" value="true" />
-      <created>1711528025219</created>
-      <option name="number" value="00028" />
-      <option name="presentableId" value="LOCAL-00028" />
-      <option name="project" value="LOCAL" />
-      <updated>1711528025219</updated>
-    </task>
-    <task id="LOCAL-00029" summary="Upd">
-      <option name="closed" value="true" />
-      <created>1711528181571</created>
-      <option name="number" value="00029" />
-      <option name="presentableId" value="LOCAL-00029" />
-      <option name="project" value="LOCAL" />
-      <updated>1711528181571</updated>
-    </task>
-    <task id="LOCAL-00030" summary="Upd">
-      <option name="closed" value="true" />
-      <created>1711528231825</created>
-      <option name="number" value="00030" />
-      <option name="presentableId" value="LOCAL-00030" />
-      <option name="project" value="LOCAL" />
-      <updated>1711528231825</updated>
-    </task>
-    <task id="LOCAL-00031" summary="Upd">
-      <option name="closed" value="true" />
-      <created>1711535082395</created>
-      <option name="number" value="00031" />
-      <option name="presentableId" value="LOCAL-00031" />
-      <option name="project" value="LOCAL" />
-      <updated>1711535082395</updated>
-    </task>
-    <task id="LOCAL-00032" summary="Upd">
-      <option name="closed" value="true" />
-      <created>1711603764449</created>
-      <option name="number" value="00032" />
-      <option name="presentableId" value="LOCAL-00032" />
-      <option name="project" value="LOCAL" />
-      <updated>1711603764449</updated>
-    </task>
-    <task id="LOCAL-00033" summary="Upd">
-      <option name="closed" value="true" />
-      <created>1711713368232</created>
-      <option name="number" value="00033" />
-      <option name="presentableId" value="LOCAL-00033" />
-      <option name="project" value="LOCAL" />
-      <updated>1711713368232</updated>
+      <workItem from="1719568571908" duration="369000" />
+      <workItem from="1719855360228" duration="152000" />
+      <workItem from="1720441287815" duration="185000" />
+      <workItem from="1720954157078" duration="985000" />
+      <workItem from="1720955926402" duration="296000" />
+      <workItem from="1720956286745" duration="22000" />
+      <workItem from="1720956467386" duration="350000" />
+      <workItem from="1720957574933" duration="91000" />
+      <workItem from="1720957815491" duration="200000" />
+      <workItem from="1720958130857" duration="520000" />
     </task>
     <task id="LOCAL-00034" summary="Upd">
       <option name="closed" value="true" />
@@ -521,7 +446,103 @@
       <option name="project" value="LOCAL" />
       <updated>1719483812309</updated>
     </task>
-    <option name="localTasksCounter" value="71" />
+    <task id="LOCAL-00071" summary="Upd">
+      <option name="closed" value="true" />
+      <created>1719568763522</created>
+      <option name="number" value="00071" />
+      <option name="presentableId" value="LOCAL-00071" />
+      <option name="project" value="LOCAL" />
+      <updated>1719568763523</updated>
+    </task>
+    <task id="LOCAL-00072" summary="Upd">
+      <option name="closed" value="true" />
+      <created>1719855487068</created>
+      <option name="number" value="00072" />
+      <option name="presentableId" value="LOCAL-00072" />
+      <option name="project" value="LOCAL" />
+      <updated>1719855487068</updated>
+    </task>
+    <task id="LOCAL-00073" summary="Upd">
+      <option name="closed" value="true" />
+      <created>1720441468063</created>
+      <option name="number" value="00073" />
+      <option name="presentableId" value="LOCAL-00073" />
+      <option name="project" value="LOCAL" />
+      <updated>1720441468063</updated>
+    </task>
+    <task id="LOCAL-00074" summary="Upd">
+      <option name="closed" value="true" />
+      <created>1720954966856</created>
+      <option name="number" value="00074" />
+      <option name="presentableId" value="LOCAL-00074" />
+      <option name="project" value="LOCAL" />
+      <updated>1720954966856</updated>
+    </task>
+    <task id="LOCAL-00075" summary="Upd">
+      <option name="closed" value="true" />
+      <created>1720955978882</created>
+      <option name="number" value="00075" />
+      <option name="presentableId" value="LOCAL-00075" />
+      <option name="project" value="LOCAL" />
+      <updated>1720955978882</updated>
+    </task>
+    <task id="LOCAL-00076" summary="Upd">
+      <option name="closed" value="true" />
+      <created>1720956115983</created>
+      <option name="number" value="00076" />
+      <option name="presentableId" value="LOCAL-00076" />
+      <option name="project" value="LOCAL" />
+      <updated>1720956115983</updated>
+    </task>
+    <task id="LOCAL-00077" summary="Upd">
+      <option name="closed" value="true" />
+      <created>1720956304161</created>
+      <option name="number" value="00077" />
+      <option name="presentableId" value="LOCAL-00077" />
+      <option name="project" value="LOCAL" />
+      <updated>1720956304161</updated>
+    </task>
+    <task id="LOCAL-00078" summary="Upd">
+      <option name="closed" value="true" />
+      <created>1720956545402</created>
+      <option name="number" value="00078" />
+      <option name="presentableId" value="LOCAL-00078" />
+      <option name="project" value="LOCAL" />
+      <updated>1720956545402</updated>
+    </task>
+    <task id="LOCAL-00079" summary="Upd">
+      <option name="closed" value="true" />
+      <created>1720956736073</created>
+      <option name="number" value="00079" />
+      <option name="presentableId" value="LOCAL-00079" />
+      <option name="project" value="LOCAL" />
+      <updated>1720956736073</updated>
+    </task>
+    <task id="LOCAL-00080" summary="Upd">
+      <option name="closed" value="true" />
+      <created>1720956812273</created>
+      <option name="number" value="00080" />
+      <option name="presentableId" value="LOCAL-00080" />
+      <option name="project" value="LOCAL" />
+      <updated>1720956812273</updated>
+    </task>
+    <task id="LOCAL-00081" summary="Upd">
+      <option name="closed" value="true" />
+      <created>1720957612239</created>
+      <option name="number" value="00081" />
+      <option name="presentableId" value="LOCAL-00081" />
+      <option name="project" value="LOCAL" />
+      <updated>1720957612239</updated>
+    </task>
+    <task id="LOCAL-00082" summary="Upd">
+      <option name="closed" value="true" />
+      <created>1720957859401</created>
+      <option name="number" value="00082" />
+      <option name="presentableId" value="LOCAL-00082" />
+      <option name="project" value="LOCAL" />
+      <updated>1720957859401</updated>
+    </task>
+    <option name="localTasksCounter" value="83" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

@@ -6,6 +6,8 @@ from itertools import cycle
 from pathlib import Path
 import requests
 
+name = 'GIBDD FINES'
+
 logging.config.dictConfig(json.load(open('logging.json', 'r')))
 LOGGER = logging.getLogger(__name__)
 
