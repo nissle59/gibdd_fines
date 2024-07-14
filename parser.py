@@ -175,7 +175,7 @@ class Fines:
                                           open(f'results/photos-{sts}-{regnum}.json', 'w', encoding='utf-8'),
                                           ensure_ascii=False, indent=2)
                         except Exception as e:
-                            LOGGER.info(e)
+                            LOGGER.debug(e)
                         #################################
                     except Exception as e:
                         r['picsToken'] = None
