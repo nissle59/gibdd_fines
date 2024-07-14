@@ -247,8 +247,14 @@ def process_thread(cars: list):
                     config.r_proxies = cycle(config.proxies)
                     v.proxy = next(config.r_proxies)
                 c += 1
+            except requests.exceptions.ProxyError as prx_e:
+                if v.proxy:
+                    config.r_proxies = cycle(config.proxies)
+                    v.proxy = next(config.r_proxies)
+                c += 1
+                LOGGER.error(prx_e, exc_info=True)
             except Exception as e:
-                LOGGER.error(e, exc_info=True)
+                LOGGER.critical(e, exc_info=True)
                 if v.proxy:
                     v.proxy = next(config.r_proxies)
                 c += 1
