@@ -196,7 +196,7 @@ class Fines:
                             f.write(str(r.status_code) + '\n' + r.text + '\n\n' + str(ex))
                     result = None
                 except Exception as e:
-                    LOGGER.info(e)
+                    LOGGER.debug(e)
                     # config.error(f'{sts} - Failed')
                     config.failed_list.append(sts)
                     result = None
