@@ -224,7 +224,7 @@ def process_thread(cars: list):
                 try:
                     asyncio.run(sql_adapter.touch_pair(sts, reg))
                 except Exception as e:
-                    LOGGER.error(e, exc_info=True)
+                    LOGGER.critical(e, exc_info=True)
                 car = v.get_fines(reg, sts)
                 #print(json.dumps(car, ensure_ascii=False, indent=2))
                 if car:
@@ -232,15 +232,15 @@ def process_thread(cars: list):
                         try:
                             asyncio.run(sql_adapter.insert_divisions(car))
                         except Exception as e:
-                            LOGGER.error(e, exc_info=True)
+                            LOGGER.critical(e, exc_info=True)
                         try:
                             asyncio.run(sql_adapter.insert_laws(car))
                         except Exception as e:
-                            LOGGER.error(e, exc_info=True)
+                            LOGGER.critical(e, exc_info=True)
                         try:
                             asyncio.run(sql_adapter.insert_fines(car))
                         except Exception as e:
-                            LOGGER.error(e, exc_info=True)
+                            LOGGER.critical(e, exc_info=True)
                 break
             except StopIteration:
                 if v.proxy:
