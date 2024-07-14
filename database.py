@@ -65,7 +65,7 @@ class AsyncDatabase:
         try:
             res = await self.conn.fetch(query=query)
         except Exception as e:
-            LOGGER.error(f'***\nОшибка при запросе к БД: {e}\n{query}\n***', config.name, exc_info=True)
+            LOGGER.error("%s: " + f'***\nОшибка при запросе к БД: {e}\n{query}\n***', config.name, exc_info=True)
             return None
 
         return res
@@ -78,7 +78,7 @@ class AsyncDatabase:
         try:
             res = await self.conn.execute(query, *args)
         except Exception as e:
-            LOGGER.error(f'***\nОшибка при запросе к БД: {e}\n{query}\n***', config.name, exc_info=True)
+            LOGGER.error("%s: " + f'***\nОшибка при запросе к БД: {e}\n{query}\n***', config.name, exc_info=True)
             return None
 
         return res
@@ -91,7 +91,7 @@ class AsyncDatabase:
         try:
             res = await self.conn.executemany(query, values)
         except Exception as e:
-            LOGGER.error(f'***\nОшибка при запросе к БД: {e}\n{query}\n***', config.name, exc_info=True)
+            LOGGER.error("%s: " + f'***\nОшибка при запросе к БД: {e}\n{query}\n***', config.name, exc_info=True)
             return None
 
         return res
