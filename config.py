@@ -1,10 +1,7 @@
 import json
-import logging
 import logging.config
-import sys
 from itertools import cycle
 from pathlib import Path
-import requests
 
 name = 'GIBDD FINES'
 
@@ -18,7 +15,7 @@ img_base_path = Path('/mnt/FinePhotos/')
 
 DATABASE = {
     # 'host': '10.8.0.5',
-    'host': 'db.local',
+    'host': 'pg.db.services.local',
     'port': 5432,
     'user': 'postgres',
     'pswd': 'psqlpass',
@@ -38,7 +35,7 @@ failed_list = []
 #
 # workers = Worker.all(queue=queue)
 
-# if DATABASE['host'] == 'db.local':
+# if DATABASE['host'] == 'pg.db.services.local':
 #     logging.basicConfig(level=logging.INFO)
 # else:
 #     logging.basicConfig(level=logging.DEBUG)
